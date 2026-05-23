@@ -2,7 +2,7 @@
 
 Human-readable contract shared by **backend** and **frontend**. Both tracks implement against this document. When behavior or naming changes, update this file first, then align code in each track.
 
-**Status:** scaffold — endpoints and screens are not implemented yet.
+**Status:** backend API implemented; frontend screens not implemented yet.
 
 ---
 
@@ -135,9 +135,9 @@ Matching rule (backend): case-insensitive substring match on enquiry `message` (
 
 ---
 
-## API surface (planned, not implemented)
+## API surface (backend)
 
-Base path: `/` on backend service. OpenAPI will be generated from FastAPI when implemented.
+Base path: `/` on backend service. OpenAPI: `/docs` when the API is running.
 
 | Method | Path | Purpose |
 |--------|------|---------|
@@ -199,3 +199,4 @@ Authentication, payments, external CRM integrations, LLM/AI matching, multi-tena
 | Date | Change |
 |------|--------|
 | 2026-05-24 | Initial scaffold contract. |
+| 2026-05-24 | Backend API implemented (FastAPI). |

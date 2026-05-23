@@ -1,0 +1,52 @@
+@baseUrl = http://127.0.0.1:8000
+
+### Health
+GET {{baseUrl}}/health
+
+### Create enquiry (pricing → expect SOP match)
+# @name createPricing
+POST {{baseUrl}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Priya Sharma",
+  "channel": "whatsapp",
+  "subject": "Need pricing for 3 seats",
+  "message": "Hi, can you share pricing for three seats on the Growth plan?"
+}
+
+### History (poll until status is matched or escalated)
+@enquiryId = {{createPricing.response.body.enquiry.id}}
+GET {{baseUrl}}/enquiry/{{enquiryId}}/history
+
+### Create enquiry (no keywords → auto escalate)
+# @name createEscalate
+POST {{baseUrl}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Alex Kim",
+  "channel": "email",
+  "subject": "Hello",
+  "message": "Just checking in — no specific topic."
+}
+
+### Follow-up
+@escalateId = {{createEscalate.response.body.enquiry.id}}
+POST {{baseUrl}}/enquiry/{{escalateId}}/follow-up
+Content-Type: application/json
+
+{
+  "message": "Actually we also need help with a refund on invoice 9921."
+}
+
+### Manual escalate
+POST {{baseUrl}}/enquiry/{{enquiryId}}/escalate
+Content-Type: application/json
+
+{
+  "reason": "Customer requests legal review before contract"
+}
+
+### Not found
+GET {{baseUrl}}/enquiry/00000000-0000-0000-0000-000000000000/history
