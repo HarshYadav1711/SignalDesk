@@ -1,0 +1,1 @@
+"""SignalDesk FastAPI application package."""

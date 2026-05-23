@@ -1,0 +1,37 @@
+{
+  "escalations": [
+    {
+      "id": "conv-1042",
+      "customerName": "Rahul Mehta",
+      "channel": "whatsapp",
+      "subject": "Refund on annual plan",
+      "status": "escalated",
+      "priority": "high",
+      "lastMessageAt": "2026-05-24T08:12:00Z",
+      "preview": "Charged twice on invoice #8821 — needs billing lead.",
+      "reason": "No confident SOP match + billing dispute"
+    },
+    {
+      "id": "conv-1035",
+      "customerName": "Apex Legal LLP",
+      "channel": "email",
+      "subject": "Enterprise MSA review",
+      "status": "escalated",
+      "priority": "medium",
+      "lastMessageAt": "2026-05-23T14:02:00Z",
+      "preview": "Legal wants redlines on data processing addendum.",
+      "reason": "Manual escalation — legal review"
+    },
+    {
+      "id": "conv-1028",
+      "customerName": "Walk-in Lead",
+      "channel": "web_chat",
+      "subject": "General enquiry",
+      "status": "escalated",
+      "priority": "low",
+      "lastMessageAt": "2026-05-23T11:40:00Z",
+      "preview": "Message did not match any playbook keywords.",
+      "reason": "Auto-escalated — no SOP match"
+    }
+  ]
+}

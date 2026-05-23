@@ -1,0 +1,55 @@
+{
+  "ownerName": "Ananya",
+  "businessName": "Brightline Studio",
+  "greeting": "Good morning",
+  "metrics": [
+    {
+      "id": "open-leads",
+      "label": "Open leads",
+      "value": 18,
+      "delta": "+4 today",
+      "tone": "info"
+    },
+    {
+      "id": "escalations",
+      "label": "Escalations",
+      "value": 3,
+      "delta": "2 urgent",
+      "tone": "danger"
+    },
+    {
+      "id": "follow-ups",
+      "label": "Follow-ups due",
+      "value": 6,
+      "delta": "before 6pm",
+      "tone": "warning"
+    },
+    {
+      "id": "matched",
+      "label": "SOP matched",
+      "value": 12,
+      "delta": "68% auto-routed",
+      "tone": "success"
+    }
+  ],
+  "priorityQueue": [
+    {
+      "id": "conv-1042",
+      "customerName": "Rahul Mehta",
+      "channel": "whatsapp",
+      "subject": "Refund on annual plan",
+      "status": "escalated",
+      "lastMessageAt": "2026-05-24T08:12:00Z",
+      "preview": "Charged twice on invoice #8821 — need supervisor."
+    },
+    {
+      "id": "conv-1038",
+      "customerName": "Studio Nine",
+      "channel": "email",
+      "subject": "Growth plan pricing",
+      "status": "matched",
+      "lastMessageAt": "2026-05-24T07:45:00Z",
+      "preview": "SOP matched: Pricing & Plans — draft ready."
+    }
+  ]
+}

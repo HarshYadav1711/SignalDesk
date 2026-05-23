@@ -1,0 +1,34 @@
+{
+  "followUps": [
+    {
+      "id": "conv-1049",
+      "customerName": "Northwind Traders",
+      "channel": "email",
+      "subject": "Invoice follow-up",
+      "status": "awaiting_reply",
+      "dueAt": "2026-05-24T18:00:00Z",
+      "preview": "Send VAT breakdown once finance confirms.",
+      "note": "Promised response by 6pm IST"
+    },
+    {
+      "id": "conv-1038",
+      "customerName": "Studio Nine",
+      "channel": "email",
+      "subject": "Growth plan comparison",
+      "status": "scheduled",
+      "dueAt": "2026-05-25T10:00:00Z",
+      "preview": "Share seat-based pricing sheet after call.",
+      "note": "Callback booked — 10:00 IST"
+    },
+    {
+      "id": "conv-1021",
+      "customerName": "Kite & Co",
+      "channel": "whatsapp",
+      "subject": "Trial extension",
+      "status": "awaiting_reply",
+      "dueAt": "2026-05-24T15:30:00Z",
+      "preview": "Confirm 7-day trial extension approval.",
+      "note": "Needs manager sign-off"
+    }
+  ]
+}
