@@ -1,72 +1,33 @@
-# SignalDesk Backend
+# SignalDesk — Backend
 
-Lightweight FastAPI service for inbound enquiry handling with asynchronous SOP keyword matching.
+FastAPI service for inbound enquiry handling, SOP keyword matching, and operational history.
 
-See the [root README](../README.md) for monorepo setup and the combined walkthrough video.
+**Status:** scaffold — not runnable yet.
 
-## Quick start
+## Contract
 
-```bash
-cd backend
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+Implement against [../docs/product-contract.md](../docs/product-contract.md). Use `snake_case` for API and database fields.
 
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+## Planned layout
+
+```
+backend/
+├── app/
+│   ├── routers/      # HTTP routes
+│   ├── services/     # Domain logic (SOP matcher, enquiry lifecycle)
+│   └── ...           # models, schemas, config (to be added)
+└── tests/            # pytest suite
 ```
 
-- API: http://127.0.0.1:8000
-- OpenAPI docs: http://127.0.0.1:8000/docs
+## Planned stack (free, maintained)
 
-## Database: SQLite vs PostgreSQL
+- Python 3.11+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [SQLAlchemy](https://www.sqlalchemy.org/) + SQLite for local dev
+- [pytest](https://pytest.org/) + [httpx](https://www.python-httpx.org/) for API tests
 
-**Choice for this submission: SQLite** (`sqlite:///./signaldesk.db`).
+Dependency manifests and a runnable app will be added in the backend implementation phase.
 
-| | SQLite | PostgreSQL |
-|---|--------|------------|
-| Setup | Zero config, file-based | Requires server/container |
-| Concurrency | Fine for demo & single worker | Better for multi-worker production |
-| Reviewer experience | Clone and run immediately | Extra infra step |
+## Parallel work
 
-The schema uses SQLAlchemy models that work unchanged with PostgreSQL — set `DATABASE_URL=postgresql+psycopg://user:pass@localhost/signaldesk` for production.
-
-### Schema reasoning
-
-- **`enquiries`** — current enquiry state (status, matched SOP, suggested response).
-- **`enquiry_events`** — append-only operational timeline (created, SOP matched, escalated, follow-ups).
-
-This split keeps reads simple for `/history` while preserving a full audit trail without mutating past records.
-
-## Celery vs FastAPI BackgroundTasks
-
-**Choice: `BackgroundTasks`**
-
-| | BackgroundTasks | Celery |
-|---|-----------------|--------|
-| Dependencies | None (in-process) | Broker (Redis/RabbitMQ) + worker process |
-| Durability | Lost if process crashes mid-task | Tasks survive restarts |
-| Fit here | Keyword SOP scan is fast (<50ms) | Overkill for internship scope |
-
-Celery is the right upgrade when tasks are long-running, retriable, or must survive API restarts. For this assignment's keyword matcher, in-process background work is sufficient and keeps the repo easy to run.
-
-## Structured logging
-
-Logs are JSON lines to stdout with `event` keys such as `enquiry_created`, `task_processed`, `sop_matched`, and `escalation_triggered`.
-
-## API tests
-
-```bash
-pytest -q
-```
-
-Also see `signaldesk.http` for REST Client / VS Code manual calls.
-
-## Trade-offs & known limitations
-
-- Background work is in-process — not durable across crashes.
-- SOP matching is naive keyword overlap (no stemming, no priority rules beyond best score).
-- No authentication (internal workflow service assumption).
-- SQLite write locking under heavy concurrent load.
+Own everything under `backend/`. Do not change `frontend/` or the product contract without syncing both tracks.

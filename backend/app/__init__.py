@@ -1,1 +1,1 @@
-"""SignalDesk FastAPI application package."""
+"""SignalDesk API package (scaffold)."""
