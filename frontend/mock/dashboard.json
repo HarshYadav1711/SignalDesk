@@ -1,0 +1,95 @@
+{
+  "metrics": [
+    {
+      "id": "metric-open",
+      "label": "Open enquiries",
+      "value": 9,
+      "trend": { "direction": "up", "label": "+2 since yesterday" },
+      "accentKey": "primary"
+    },
+    {
+      "id": "metric-escalations",
+      "label": "Escalations",
+      "value": 3,
+      "trend": { "direction": "up", "label": "1 new today" },
+      "accentKey": "danger"
+    },
+    {
+      "id": "metric-matched",
+      "label": "SOP matched",
+      "value": 5,
+      "trend": { "direction": "neutral", "label": "Ready to send" },
+      "accentKey": "success"
+    },
+    {
+      "id": "metric-followups",
+      "label": "Follow-ups due",
+      "value": 3,
+      "trend": { "direction": "down", "label": "1 overdue" },
+      "accentKey": "warning"
+    }
+  ],
+  "activity": [
+    {
+      "id": "act-001",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440005",
+      "eventType": "enquiry_created",
+      "title": "New lead — Priya Nair",
+      "subtitle": "Cancel service appointment",
+      "timestamp": "2026-05-24T09:40:00.000Z",
+      "channel": "email"
+    },
+    {
+      "id": "act-002",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440008",
+      "eventType": "task_started",
+      "title": "Processing — David Kim",
+      "subtitle": "Commercial HVAC maintenance quote",
+      "timestamp": "2026-05-24T09:16:00.000Z",
+      "channel": "email"
+    },
+    {
+      "id": "act-003",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "eventType": "follow_up",
+      "title": "Follow-up received — Lisa Park",
+      "subtitle": "Refund still pending — escalated to finance",
+      "timestamp": "2026-05-24T08:50:00.000Z",
+      "channel": "web_chat"
+    },
+    {
+      "id": "act-004",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "eventType": "sop_matched",
+      "title": "SOP matched — Sarah Chen",
+      "subtitle": "Pricing & Plans — suggested response ready",
+      "timestamp": "2026-05-24T08:14:22.000Z",
+      "channel": "whatsapp"
+    },
+    {
+      "id": "act-005",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
+      "eventType": "auto_escalated",
+      "title": "Auto-escalated — Elena Rodriguez",
+      "subtitle": "Post-install thermostat failure",
+      "timestamp": "2026-05-24T09:05:00.000Z",
+      "channel": "web_chat"
+    },
+    {
+      "id": "act-006",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
+      "eventType": "manual_escalated",
+      "title": "Manual escalation — Marcus Webb",
+      "subtitle": "Duplicate charge requires manager approval",
+      "timestamp": "2026-05-24T07:30:00.000Z",
+      "channel": "email"
+    }
+  ],
+  "priorityQueueIds": [
+    "550e8400-e29b-41d4-a716-446655440003",
+    "550e8400-e29b-41d4-a716-446655440007",
+    "550e8400-e29b-41d4-a716-446655440002",
+    "550e8400-e29b-41d4-a716-446655440010",
+    "550e8400-e29b-41d4-a716-446655440001"
+  ]
+}

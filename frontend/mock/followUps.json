@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "fu-001",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440004",
+      "customerName": "James Okonkwo",
+      "channel": "phone",
+      "subject": "Callback — maintenance plan renewal",
+      "dueAt": "2026-05-24T14:00:00.000Z",
+      "note": "Call back with Gold vs Silver comparison; customer asked for afternoon slot.",
+      "status": "due_today",
+      "conversationStatus": "awaiting_reply"
+    },
+    {
+      "id": "fu-002",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "customerName": "Sarah Chen",
+      "channel": "whatsapp",
+      "subject": "Quote for AC installation",
+      "dueAt": "2026-05-24T17:00:00.000Z",
+      "note": "Confirm site visit time if no reply by 5 PM.",
+      "status": "due_today",
+      "conversationStatus": "matched"
+    },
+    {
+      "id": "fu-003",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "customerName": "Lisa Park",
+      "channel": "web_chat",
+      "subject": "Refund for cancelled install",
+      "dueAt": "2026-05-23T17:00:00.000Z",
+      "note": "Finance promised refund by May 23 — check status and update customer.",
+      "status": "overdue",
+      "conversationStatus": "escalated"
+    },
+    {
+      "id": "fu-004",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
+      "customerName": "Marcus Webb",
+      "channel": "email",
+      "subject": "Invoice #4821 — duplicate charge",
+      "dueAt": "2026-05-25T10:00:00.000Z",
+      "note": "Manager review scheduled — send resolution email once approved.",
+      "status": "upcoming",
+      "conversationStatus": "escalated"
+    },
+    {
+      "id": "fu-005",
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440010",
+      "customerName": "Ryan Hughes",
+      "channel": "whatsapp",
+      "subject": "Strange noise from furnace",
+      "dueAt": "2026-05-25T09:00:00.000Z",
+      "note": "Confirm tech dispatch window if customer accepts 2–5 PM slot.",
+      "status": "upcoming",
+      "conversationStatus": "matched"
+    }
+  ],
+  "total": 5
+}

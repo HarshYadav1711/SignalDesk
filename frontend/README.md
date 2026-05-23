@@ -2,34 +2,59 @@
 
 Expo (React Native) operations dashboard for triaging leads, escalations, and follow-ups.
 
-**Status:** scaffold — not runnable yet.
-
 ## Contract
 
-Implement against [../docs/product-contract.md](../docs/product-contract.md). Use `camelCase` in TypeScript and mock JSON; map to API `snake_case` at integration boundaries.
+Implement against [../docs/product-contract.md](../docs/product-contract.md). Mock JSON uses `camelCase`; map to API `snake_case` at integration boundaries.
 
-## Planned layout
+## Run
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Press `i` for iOS simulator, `a` for Android emulator, or scan the QR code with Expo Go.
+
+```bash
+npm run typecheck
+```
+
+## Layout
 
 ```
 frontend/
-├── mock/             # API-shaped JSON for offline UI work
-└── src/
-    ├── components/   # Reusable UI
-    ├── screens/      # Tab and stack screens
-    ├── navigation/   # React Navigation
-    ├── data/         # Mock loaders / future API client
-    ├── theme/        # Colors, spacing tokens
-    └── types/        # TypeScript types aligned with contract
+├── mock/                    # API-shaped JSON (offline data)
+│   ├── enquiries.json
+│   ├── events.json
+│   ├── followUps.json
+│   └── dashboard.json
+├── src/
+│   ├── components/          # Badges, cards, timeline, layout, feed
+│   ├── screens/             # Tab + conversation detail screens
+│   ├── navigation/          # Bottom tabs + stack navigator
+│   ├── data/mockData.ts     # Mock loaders (future API client)
+│   ├── theme/               # Colors, spacing, typography tokens
+│   ├── types/               # TypeScript types aligned with contract
+│   └── utils/labels.ts      # Labels and date formatting
+├── App.tsx
+└── package.json
 ```
 
-## Planned stack (free, maintained)
+## Screens
 
-- [Expo](https://expo.dev/) + [React Native](https://reactnative.dev/)
-- [React Navigation](https://reactnavigation.org/)
-- TypeScript
+| Tab / screen | Purpose |
+|--------------|---------|
+| **Home** | KPI metrics, priority queue, activity feed |
+| **Leads** | Inbound enquiry inbox |
+| **Escalations** | Cases needing human action |
+| **Follow-ups** | Due callbacks grouped by urgency |
+| **Conversation detail** | Message, SOP suggestion, timeline |
 
-Dependency manifests and screens will be added in the frontend implementation phase.
+All data is loaded from `mock/` via `src/data/mockData.ts` — no backend or auth.
 
-## Parallel work
+## Stack
 
-Own everything under `frontend/`. Early UI work may use `mock/` only. Do not change `backend/` or the product contract without syncing both tracks.
+- [Expo](https://expo.dev/) SDK 52 + React Native
+- [React Navigation](https://reactnavigation.org/) (bottom tabs + native stack)
+- TypeScript with theme tokens (`StyleSheet` + shared design tokens)

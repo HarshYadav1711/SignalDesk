@@ -1,0 +1,196 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via WhatsApp",
+      "detail": "Inbound message queued for SOP matching.",
+      "createdAt": "2026-05-24T08:12:00.000Z"
+    },
+    {
+      "id": 2,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "eventType": "task_started",
+      "summary": "SOP matching started",
+      "detail": null,
+      "createdAt": "2026-05-24T08:12:05.000Z"
+    },
+    {
+      "id": 3,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Pricing & Plans",
+      "detail": "Keywords matched: quote, pricing",
+      "createdAt": "2026-05-24T08:14:22.000Z"
+    },
+    {
+      "id": 4,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
+      "eventType": "response_suggested",
+      "summary": "Suggested response ready for review",
+      "detail": null,
+      "createdAt": "2026-05-24T08:14:22.000Z"
+    },
+    {
+      "id": 5,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via Email",
+      "detail": null,
+      "createdAt": "2026-05-23T16:45:00.000Z"
+    },
+    {
+      "id": 6,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Billing & Invoices",
+      "detail": "Keywords matched: invoice, charge",
+      "createdAt": "2026-05-23T16:47:00.000Z"
+    },
+    {
+      "id": 7,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
+      "eventType": "manual_escalated",
+      "summary": "Escalated by operator",
+      "detail": "Duplicate charge over $200 — requires manager approval",
+      "createdAt": "2026-05-24T07:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via Web chat",
+      "detail": null,
+      "createdAt": "2026-05-24T06:20:00.000Z"
+    },
+    {
+      "id": 9,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Technical Support",
+      "detail": "Keywords matched: error, not working",
+      "createdAt": "2026-05-24T06:22:00.000Z"
+    },
+    {
+      "id": 10,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
+      "eventType": "auto_escalated",
+      "summary": "Auto-escalated — post-install failure",
+      "detail": "Post-install failure within 24h — dispatch senior tech",
+      "createdAt": "2026-05-24T09:05:00.000Z"
+    },
+    {
+      "id": 11,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440004",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry logged from phone call",
+      "detail": "Inbound call — maintenance plan renewal inquiry",
+      "createdAt": "2026-05-22T14:00:00.000Z"
+    },
+    {
+      "id": 12,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440004",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Pricing & Plans",
+      "detail": null,
+      "createdAt": "2026-05-22T14:02:00.000Z"
+    },
+    {
+      "id": 13,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440004",
+      "eventType": "response_suggested",
+      "summary": "Comparison sheet sent — awaiting customer reply",
+      "detail": null,
+      "createdAt": "2026-05-23T11:20:00.000Z"
+    },
+    {
+      "id": 14,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440005",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via Email",
+      "detail": "Awaiting SOP matching",
+      "createdAt": "2026-05-24T09:40:00.000Z"
+    },
+    {
+      "id": 15,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440006",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via WhatsApp",
+      "detail": null,
+      "createdAt": "2026-05-24T07:55:00.000Z"
+    },
+    {
+      "id": 16,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440006",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Business Hours & Availability",
+      "detail": "Keywords matched: open, holiday",
+      "createdAt": "2026-05-24T08:01:00.000Z"
+    },
+    {
+      "id": 17,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via Web chat",
+      "detail": null,
+      "createdAt": "2026-05-21T10:15:00.000Z"
+    },
+    {
+      "id": 18,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Refund & Cancellation",
+      "detail": null,
+      "createdAt": "2026-05-21T10:17:00.000Z"
+    },
+    {
+      "id": 19,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "eventType": "follow_up",
+      "summary": "Customer follow-up — still no refund",
+      "detail": "Third follow-up message received",
+      "createdAt": "2026-05-24T08:50:00.000Z"
+    },
+    {
+      "id": 20,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
+      "eventType": "manual_escalated",
+      "summary": "Escalated to finance",
+      "detail": "Refund pending 21+ days — finance follow-up required",
+      "createdAt": "2026-05-24T08:50:00.000Z"
+    },
+    {
+      "id": 21,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440008",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via Email",
+      "detail": null,
+      "createdAt": "2026-05-24T09:15:00.000Z"
+    },
+    {
+      "id": 22,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440008",
+      "eventType": "task_started",
+      "summary": "SOP matching in progress",
+      "detail": null,
+      "createdAt": "2026-05-24T09:16:00.000Z"
+    },
+    {
+      "id": 23,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440010",
+      "eventType": "enquiry_created",
+      "summary": "Enquiry received via WhatsApp",
+      "detail": null,
+      "createdAt": "2026-05-24T08:30:00.000Z"
+    },
+    {
+      "id": 24,
+      "enquiryId": "550e8400-e29b-41d4-a716-446655440010",
+      "eventType": "sop_matched",
+      "summary": "Matched playbook: Technical Support",
+      "detail": "Keywords matched: noise, urgent",
+      "createdAt": "2026-05-24T08:33:00.000Z"
+    }
+  ]
+}
