@@ -1,23 +1,62 @@
-# Screenshots & recordings
+# UI screenshots
 
-Add UI captures here for submission review. The root [README](../../README.md) references these files.
+Static captures of the SignalDesk Expo dashboard for submission review. Data matches the Northline HVAC scenario in `frontend/mock/`.
 
-## Required static screenshots
+| Screen | Image | Caption |
+|--------|-------|---------|
+| Home dashboard | [home.png](home.png) | [home.md](home.md) |
+| Leads inbox | [leads.png](leads.png) | [leads.md](leads.md) |
+| Escalations | [escalations.png](escalations.png) | [escalations.md](escalations.md) |
+| Follow-ups | [follow-ups.png](follow-ups.png) | [follow-ups.md](follow-ups.md) |
+| Conversation detail | [conversation-detail.png](conversation-detail.png) | [conversation-detail.md](conversation-detail.md) |
 
-| File | Screen |
-|------|--------|
-| `home.png` | Home — metrics, priority queue, activity |
-| `leads.png` | Leads inbox |
-| `escalations.png` | Escalations queue |
-| `follow-ups.png` | Follow-ups (grouped sections) |
-| `conversation-detail.png` | Conversation detail — message, SOP block, timeline |
+Root overview: [../../README.md](../../README.md#screenshots--screen-recordings)
 
-## Optional clips
+---
 
-Short screen recordings (e.g. `leads.mp4`) are fine if your submission allows multiple media files. The primary walkthrough should still be **`docs/walkthrough.mp4`** at the repo root’s `docs/` folder.
+## Gallery
 
-## Tips
+### Home dashboard
 
-- Use a simulator or device at a consistent size (e.g. iPhone 15).
-- Capture at least one **empty state** (e.g. Escalations cleared) if you demonstrate filtering or a fresh dataset.
-- Match the mock scenario: Northline-style HVAC service enquiries in `frontend/mock/`.
+![Home dashboard](home.png)
+
+KPI row, priority queue, and recent activity. See [home.md](home.md).
+
+### Leads inbox
+
+![Leads inbox](leads.png)
+
+Inbound enquiries with channel and status badges. See [leads.md](leads.md).
+
+### Escalations
+
+![Escalations](escalations.png)
+
+Escalation reasons and priority indicators. See [escalations.md](escalations.md).
+
+### Follow-ups
+
+![Follow-ups](follow-ups.png)
+
+Sections: overdue, due today, upcoming. See [follow-ups.md](follow-ups.md).
+
+### Conversation detail
+
+![Conversation detail](conversation-detail.png)
+
+Message, suggested SOP response, and timeline. See [conversation-detail.md](conversation-detail.md).
+
+---
+
+## Regenerating captures
+
+HTML mocks live in [`_render/`](_render/). To refresh PNGs after UI token changes:
+
+```bash
+cd docs/screenshots/_render
+npm install playwright@1.49.1
+npx playwright install chromium
+node capture.mjs
+```
+
+Optional short clips (e.g. `leads.mp4`) may be added here if your submission allows multiple media files. The primary walkthrough belongs in [`../walkthrough/`](../walkthrough/README.md).

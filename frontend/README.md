@@ -76,4 +76,4 @@ npm start
 
 Mock data: `mock/` · Loaders: `src/data/mockData.ts` · Contract: [../docs/product-contract.md](../docs/product-contract.md)
 
-UI captures: [../docs/screenshots/README.md](../docs/screenshots/README.md)
+UI captures: [../docs/screenshots/README.md](../docs/screenshots/README.md) · API reference: [../docs/api/README.md](../docs/api/README.md) · Walkthrough: [../docs/walkthrough/README.md](../docs/walkthrough/README.md)

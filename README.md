@@ -14,7 +14,9 @@ SignalDesk/
 ├── frontend/         # Expo (React Native) ops dashboard — mock data for now
 ├── docs/
 │   ├── product-contract.md   # Shared domain model (read before changing types)
-│   └── screenshots/          # UI captures (see docs/screenshots/README.md)
+│   ├── api/                  # REST examples and error reference
+│   ├── screenshots/          # UI captures (see docs/screenshots/README.md)
+│   └── walkthrough/          # Demo video guide (see docs/walkthrough/README.md)
 ├── LICENSE
 └── README.md         # This file
 ```
@@ -25,33 +27,25 @@ Track-specific quick notes: [backend/README.md](backend/README.md) · [frontend/
 
 ## Walkthrough video
 
-Record a single end-to-end demo and place it at:
+Record a single end-to-end demo and place it at **`docs/walkthrough/walkthrough.mp4`**. Full recording guide: [docs/walkthrough/README.md](docs/walkthrough/README.md).
 
-**`docs/walkthrough.mp4`**
-
-Suggested flow (3–5 minutes):
-
-1. Start the API and create an enquiry that matches a SOP (`POST /enquiry` with pricing keywords).
-2. Poll `GET /enquiry/{id}/history` until status is `matched` and a suggested response appears.
-3. Create an enquiry with no keyword match and show auto-escalation.
-4. Open the mobile app: Home → Leads → Escalations → Follow-ups → Conversation detail.
-5. Briefly call out empty states (e.g. clear Leads inbox) if easy to show with a filtered dataset.
+Suggested flow (3–5 minutes): start the API → create and poll enquiries → show auto-escalation → walk the mobile app (Home → Leads → Escalations → Follow-ups → Conversation detail).
 
 ---
 
-## Screenshots & screen recordings
+## Screenshots
 
-Add static captures under [`docs/screenshots/`](docs/screenshots/README.md). Reference them in your submission or embed in the walkthrough.
+UI captures for every dashboard screen live under [`docs/screenshots/`](docs/screenshots/README.md).
 
-| Screen | File (add this) | What to show |
-|--------|-----------------|--------------|
-| Home | `home.png` | KPI row, priority queue, activity feed |
-| Leads | `leads.png` | Inbox cards with channel/status badges |
-| Escalations | `escalations.png` | Escalation reason and priority |
-| Follow-ups | `follow-ups.png` | Sections: overdue / due today / upcoming |
-| Conversation detail | `conversation-detail.png` | Message, suggested SOP response, timeline |
+| Screen | Image | Caption |
+|--------|-------|---------|
+| Home dashboard | [home.png](docs/screenshots/home.png) | [home.md](docs/screenshots/home.md) |
+| Leads | [leads.png](docs/screenshots/leads.png) | [leads.md](docs/screenshots/leads.md) |
+| Escalations | [escalations.png](docs/screenshots/escalations.png) | [escalations.md](docs/screenshots/escalations.md) |
+| Follow-ups | [follow-ups.png](docs/screenshots/follow-ups.png) | [follow-ups.md](docs/screenshots/follow-ups.md) |
+| Conversation detail | [conversation-detail.png](docs/screenshots/conversation-detail.png) | [conversation-detail.md](docs/screenshots/conversation-detail.md) |
 
-Optional: short clips per tab in `docs/screenshots/` (e.g. `home.mp4`) if your submission allows multiple files.
+Optional: short clips per tab in `docs/screenshots/` if your submission allows multiple media files.
 
 ---
 
@@ -167,7 +161,7 @@ flowchart TB
 
 ## API usage examples
 
-Base URL: `http://127.0.0.1:8000`. Full samples: [backend/signaldesk.http](backend/signaldesk.http).
+Base URL: `http://127.0.0.1:8000`. Full reference (requests, responses, status codes, errors): [docs/api/README.md](docs/api/README.md). REST Client file: [backend/signaldesk.http](backend/signaldesk.http).
 
 ### Health
 

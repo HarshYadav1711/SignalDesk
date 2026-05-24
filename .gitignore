@@ -26,5 +26,11 @@ Thumbs.db
 *.swp
 *.swo
 
-# Docs media (add when needed)
-# docs/walkthrough.mp4
+# Docs — screenshot render tooling (PNGs are committed)
+docs/screenshots/_render/node_modules/
+docs/screenshots/_render/package-lock.json
+
+# Walkthrough video (large; add locally before submit)
+docs/walkthrough/*.mp4
+docs/walkthrough/*.webm
+docs/walkthrough/*.mov

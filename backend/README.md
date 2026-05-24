@@ -19,6 +19,7 @@ uvicorn app.main:app --reload --port 8000
 - http://127.0.0.1:8000/docs — OpenAPI  
 - `pytest -q` — tests  
 - [signaldesk.http](signaldesk.http) — REST Client samples  
+- [../docs/api/README.md](../docs/api/README.md) — request/response examples and errors  
 - [.env.example](.env.example) — optional configuration  
 
 Domain definitions: [../docs/product-contract.md](../docs/product-contract.md)
