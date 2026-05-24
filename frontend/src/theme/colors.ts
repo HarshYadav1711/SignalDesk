@@ -24,6 +24,9 @@ export const colors = {
   tabInactive: '#64748B',
   tabActive: '#2563EB',
   headerBackground: '#0F172A',
+  headerSubtitle: '#94A3B8',
+  warningBorder: '#FDE68A',
+  successBorder: '#A7F3D0',
 } as const;
 
 export const channelColors: Record<

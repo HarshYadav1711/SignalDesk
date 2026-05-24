@@ -21,7 +21,8 @@ export function ConversationDetailScreen() {
         <EmptyState
           icon="search-outline"
           title="Conversation not found"
-          message="This enquiry may have been removed from the mock dataset."
+          message="This enquiry is not in the current dataset. Check the ID or return to the list."
+          hint="Use the back button to return to Leads or Escalations"
         />
       </View>
     );
@@ -37,9 +38,9 @@ export function ConversationDetailScreen() {
     >
       <ConversationHeader enquiry={enquiry} />
 
-      {enquiry.suggestedResponse && enquiry.matchedSopTitle ? (
+      {enquiry.suggestedResponse ? (
         <SuggestedResponseBlock
-          sopTitle={enquiry.matchedSopTitle}
+          sopTitle={enquiry.matchedSopTitle ?? 'Playbook'}
           response={enquiry.suggestedResponse}
         />
       ) : null}
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     marginBottom: spacing.lg,
     borderWidth: 1,
-    borderColor: '#FDE68A',
+    borderColor: colors.warningBorder,
   },
   followUpLabel: {
     fontSize: 12,

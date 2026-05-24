@@ -1,34 +1,4 @@
 {
-  "metrics": [
-    {
-      "id": "metric-open",
-      "label": "Open enquiries",
-      "value": 9,
-      "trend": { "direction": "up", "label": "+2 since yesterday" },
-      "accentKey": "primary"
-    },
-    {
-      "id": "metric-escalations",
-      "label": "Escalations",
-      "value": 3,
-      "trend": { "direction": "up", "label": "1 new today" },
-      "accentKey": "danger"
-    },
-    {
-      "id": "metric-matched",
-      "label": "SOP matched",
-      "value": 5,
-      "trend": { "direction": "neutral", "label": "Ready to send" },
-      "accentKey": "success"
-    },
-    {
-      "id": "metric-followups",
-      "label": "Follow-ups due",
-      "value": 3,
-      "trend": { "direction": "down", "label": "1 overdue" },
-      "accentKey": "warning"
-    }
-  ],
   "activity": [
     {
       "id": "act-001",

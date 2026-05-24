@@ -2,7 +2,8 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenHeader, SectionHeader } from '../components/layout';
+import { ScreenHeader, SectionHeader, EmptyState } from '../components/layout';
+import { formatOperationsSubtitle } from '../utils/labels';
 import { MetricCard, LeadCard } from '../components/cards';
 import { ActivityFeedItem } from '../components/feed/ActivityFeedItem';
 import { getDashboard } from '../data/mockData';
@@ -23,7 +24,7 @@ export function HomeScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScreenHeader
         title="Operations"
-        subtitle="Saturday, May 24 — triage queue overview"
+        subtitle={formatOperationsSubtitle()}
       />
       <ScrollView
         style={styles.scroll}
@@ -37,22 +38,39 @@ export function HomeScreen() {
         </View>
 
         <SectionHeader title="Priority queue" actionLabel={`${priorityQueue.length} items`} />
-        {priorityQueue.map((enquiry) => (
-          <LeadCard
-            key={enquiry.id}
-            enquiry={enquiry}
-            onPress={() => openConversation(enquiry.id)}
+        {priorityQueue.length === 0 ? (
+          <EmptyState
+            icon="flag-outline"
+            title="Priority queue clear"
+            message="No high-priority enquiries need attention right now."
+            hint="New escalations and urgent leads will surface here"
           />
-        ))}
+        ) : (
+          priorityQueue.map((enquiry) => (
+            <LeadCard
+              key={enquiry.id}
+              enquiry={enquiry}
+              onPress={() => openConversation(enquiry.id)}
+            />
+          ))
+        )}
 
         <SectionHeader title="Recent activity" />
-        {activity.map((item) => (
-          <ActivityFeedItem
-            key={item.id}
-            item={item}
-            onPress={() => openConversation(item.enquiryId)}
+        {activity.length === 0 ? (
+          <EmptyState
+            icon="pulse-outline"
+            title="No recent activity"
+            message="Operational events will appear here as enquiries are processed."
           />
-        ))}
+        ) : (
+          activity.map((item) => (
+            <ActivityFeedItem
+              key={item.id}
+              item={item}
+              onPress={() => openConversation(item.enquiryId)}
+            />
+          ))
+        )}
       </ScrollView>
     </SafeAreaView>
   );

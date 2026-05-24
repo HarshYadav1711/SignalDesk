@@ -18,14 +18,9 @@ const enquiries = enquiriesData as EnquiriesListResponse;
 const events = (eventsData as { events: EnquiryEvent[] }).events;
 const followUps = followUpsData as FollowUpsListResponse;
 const dashboard = dashboardData as {
-  metrics: DashboardMetric[];
   activity: ActivityItem[];
   priorityQueueIds: string[];
 };
-
-export function getAllEnquiries(): Enquiry[] {
-  return enquiries.items;
-}
 
 export function getLeads(): Enquiry[] {
   return enquiries.items.filter(
@@ -43,13 +38,62 @@ export function getFollowUps(): FollowUp[] {
   return followUps.items;
 }
 
+function buildDashboardMetrics(): DashboardMetric[] {
+  const openCount = enquiries.items.filter((e) => e.status !== 'closed').length;
+  const escalationCount = enquiries.items.filter(
+    (e) => e.conversationStatus === 'escalated' || e.status === 'escalated'
+  ).length;
+  const matchedCount = enquiries.items.filter((e) => e.status === 'matched').length;
+  const followUpsDue = followUps.items.filter(
+    (f) => f.status === 'overdue' || f.status === 'due_today'
+  ).length;
+  const overdueCount = followUps.items.filter((f) => f.status === 'overdue').length;
+
+  return [
+    {
+      id: 'metric-open',
+      label: 'Open enquiries',
+      value: openCount,
+      trend: { direction: 'neutral', label: `${openCount} active` },
+      accentKey: 'primary',
+    },
+    {
+      id: 'metric-escalations',
+      label: 'Escalations',
+      value: escalationCount,
+      trend: {
+        direction: escalationCount > 0 ? 'up' : 'neutral',
+        label: escalationCount > 0 ? 'Needs attention' : 'Queue clear',
+      },
+      accentKey: 'danger',
+    },
+    {
+      id: 'metric-matched',
+      label: 'SOP matched',
+      value: matchedCount,
+      trend: { direction: 'neutral', label: 'Ready to send' },
+      accentKey: 'success',
+    },
+    {
+      id: 'metric-followups',
+      label: 'Follow-ups due',
+      value: followUpsDue,
+      trend: {
+        direction: overdueCount > 0 ? 'down' : 'neutral',
+        label: overdueCount > 0 ? `${overdueCount} overdue` : 'On schedule',
+      },
+      accentKey: 'warning',
+    },
+  ];
+}
+
 export function getDashboard(): DashboardResponse {
   const priorityQueue = dashboard.priorityQueueIds
     .map((id) => enquiries.items.find((e) => e.id === id))
     .filter((e): e is Enquiry => e !== undefined);
 
   return {
-    metrics: dashboard.metrics,
+    metrics: buildDashboardMetrics(),
     activity: dashboard.activity,
     priorityQueue,
   };

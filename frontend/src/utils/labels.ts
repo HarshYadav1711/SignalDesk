@@ -73,3 +73,13 @@ export function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return `${text.slice(0, maxLength - 1)}…`;
 }
+
+export function formatOperationsSubtitle(): string {
+  const now = new Date();
+  const day = now.toLocaleDateString(undefined, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+  return `${day} — triage queue overview`;
+}

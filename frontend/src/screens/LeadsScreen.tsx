@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,8 +14,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function LeadsScreen() {
   const navigation = useNavigation<Nav>();
   const leads = useMemo(() => getLeads(), []);
-
-  const unreadCount = getLeads().filter((l) => l.unread).length;
+  const unreadCount = useMemo(() => leads.filter((l) => l.unread).length, [leads]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>

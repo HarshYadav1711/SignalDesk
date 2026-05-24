@@ -1,1 +1,1 @@
-"""SignalDesk API package (scaffold)."""
+"""SignalDesk API package."""

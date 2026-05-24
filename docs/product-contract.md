@@ -2,7 +2,7 @@
 
 Human-readable contract shared by **backend** and **frontend**. Both tracks implement against this document. When behavior or naming changes, update this file first, then align code in each track.
 
-**Status:** backend API implemented; frontend screens not implemented yet.
+**Status:** backend API and frontend screens implemented; frontend uses mock data (API integration pending).
 
 ---
 
@@ -151,17 +151,17 @@ Request/response shapes follow **Enquiry** and **EnquiryEvent** above. JSON fiel
 
 ---
 
-## Frontend surface (planned, not implemented)
+## Frontend surface (implemented — mock data)
 
-| Screen / area | Route (conceptual) | Data source (future) |
-|---------------|--------------------|----------------------|
-| Home | Tab: `Home` | Aggregates + priority queue |
-| Leads | Tab: `Leads` | Enquiries inbox |
-| Escalations | Tab: `Escalations` | `status === escalated` |
-| Follow-ups | Tab: `Follow-ups` | Due callbacks / promises |
-| Conversation detail | Stack: `ConversationDetail` | `GET /enquiry/{id}/history` |
+| Screen / area | Route | Data source (current → future) |
+|---------------|-------|--------------------------------|
+| Home | Tab: `Home` | `mock/dashboard.json` + derived metrics → aggregates API |
+| Leads | Tab: `Leads` | `mock/enquiries.json` (inbox filter) → enquiry list API |
+| Escalations | Tab: `Escalations` | `mock/enquiries.json` (escalated filter) → filtered API |
+| Follow-ups | Tab: `Follow-ups` | `mock/followUps.json` → scheduling API (future) |
+| Conversation detail | Stack: `ConversationDetail` | `mock/enquiries.json` + `mock/events.json` → `GET /enquiry/{id}/history` |
 
-Mock JSON under `frontend/mock/` will mirror API shapes using **camelCase** keys for TypeScript ergonomics.
+Mock JSON under `frontend/mock/` mirrors API shapes using **camelCase** keys for TypeScript ergonomics.
 
 ---
 
@@ -200,3 +200,4 @@ Authentication, payments, external CRM integrations, LLM/AI matching, multi-tena
 |------|--------|
 | 2026-05-24 | Initial scaffold contract. |
 | 2026-05-24 | Backend API implemented (FastAPI). |
+| 2026-05-24 | Frontend screens implemented (Expo, mock data). |

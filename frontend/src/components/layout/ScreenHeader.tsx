@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     ...typography.body,
-    color: '#94A3B8',
+    color: colors.headerSubtitle,
     marginTop: spacing.sm,
     marginLeft: 48,
   },
