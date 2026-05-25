@@ -57,7 +57,7 @@ npm install
 npm start
 ```
 
-Use Expo Go or a simulator (`i` / `a`). Node **20 or 22** recommended (see [frontend/README.md](frontend/README.md) for version notes). Typecheck: `npm run typecheck`.
+Use Expo Go or a simulator (`i` / `a`), or **Edge in the browser**: `npm run web` then open `http://localhost:8081` (see [frontend/README.md](frontend/README.md)). Node **20 or 22** recommended. Typecheck: `npm run typecheck`.
 
 The app does not hit the API yet—run backend and mobile side by side when you want to show both halves.
 

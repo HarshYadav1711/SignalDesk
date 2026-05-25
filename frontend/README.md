@@ -16,6 +16,20 @@ npm start
 
 Expo Go or simulator: `i` (iOS) / `a` (Android). Typecheck: `npm run typecheck`.
 
+**Web (Microsoft Edge):**
+
+```bash
+npm run web
+```
+
+When Metro is ready, open the URL shown in the terminal (usually `http://localhost:8081`) in Edge:
+
+```powershell
+start msedge http://localhost:8081
+```
+
+Web requires `react-dom` and `react-native-web` (installed via `npx expo install react-dom react-native-web` if you see a missing-deps error).
+
 | Topic | Notes |
 |-------|--------|
 | Windows + Node 22 | [fix-node22.ps1](fix-node22.ps1) or install Node 22 LTS; avoid Node 23+ |
