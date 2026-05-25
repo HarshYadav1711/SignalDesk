@@ -27,6 +27,7 @@ class EventType(str, enum.Enum):
     MANUAL_ESCALATED = "manual_escalated"
     FOLLOW_UP = "follow_up"
     RESPONSE_SUGGESTED = "response_suggested"
+    # Reserved for future timeline use; not emitted by the current workflow.
     TASK_PROCESSED = "task_processed"
 
 
@@ -51,7 +52,7 @@ class Enquiry(Base):
 
     events: Mapped[list["EnquiryEvent"]] = relationship(
         back_populates="enquiry",
-        order_by="EnquiryEvent.created_at",
+        order_by="EnquiryEvent.created_at, EnquiryEvent.id",
         cascade="all, delete-orphan",
     )
 

@@ -61,46 +61,75 @@ class EscalateRequest(BaseModel):
 class EnquiryResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: str = Field(examples=["550e8400-e29b-41d4-a716-446655440000"])
-    customer_name: str
-    channel: str
-    subject: str
-    message: str
-    status: EnquiryStatus
-    matched_sop_id: str | None
-    matched_sop_title: str | None
-    suggested_response: str | None
-    created_at: datetime
-    updated_at: datetime
+    id: str = Field(
+        examples=["550e8400-e29b-41d4-a716-446655440000"],
+        description="Stable enquiry UUID",
+    )
+    customer_name: str = Field(description="Display name from the inbound message")
+    channel: str = Field(
+        description="Inbound channel (`email`, `whatsapp`, `web_chat`, `phone`)"
+    )
+    subject: str = Field(description="Short subject line")
+    message: str = Field(
+        description="Full message thread (initial body plus follow-ups when appended)"
+    )
+    status: EnquiryStatus = Field(description="Current lifecycle status")
+    matched_sop_id: str | None = Field(
+        default=None, description="SOP catalog id when keyword match succeeded"
+    )
+    matched_sop_title: str | None = Field(
+        default=None, description="Human-readable matched playbook title"
+    )
+    suggested_response: str | None = Field(
+        default=None, description="Template reply from the matched SOP"
+    )
+    created_at: datetime = Field(description="UTC timestamp when the enquiry was created")
+    updated_at: datetime = Field(description="UTC timestamp of the last mutation")
 
 
 class EnquiryCreatedResponse(BaseModel):
     enquiry: EnquiryResponse
     processing: bool = Field(
-        description="True when SOP matching is queued in a background task"
+        description="True when SOP matching is queued in a background task",
+        examples=[True],
     )
 
 
 class HistoryEvent(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
-    event_type: EventType
-    summary: str
-    detail: str | None
-    created_at: datetime
+    id: int = Field(description="Monotonic timeline event id")
+    event_type: EventType = Field(description="Append-only event category")
+    summary: str = Field(description="Short human-readable line for the operations UI")
+    detail: str | None = Field(
+        default=None, description="Optional longer context (reason, SOP id, message excerpt)"
+    )
+    created_at: datetime = Field(description="UTC timestamp when the event was recorded")
 
 
 class EnquiryHistoryResponse(BaseModel):
-    enquiry: EnquiryResponse
-    events: list[HistoryEvent]
+    enquiry: EnquiryResponse = Field(description="Current enquiry snapshot")
+    events: list[HistoryEvent] = Field(
+        description="Timeline events ordered oldest-first by `created_at`"
+    )
 
 
 class HealthResponse(BaseModel):
-    status: Literal["ok"] = "ok"
-    service: str = Field(examples=["SignalDesk API"])
-    database: Literal["connected", "unavailable"]
+    status: Literal["ok"] = Field(
+        default="ok",
+        description="API process liveness",
+    )
+    service: str = Field(
+        examples=["SignalDesk API"],
+        description="Configured application name",
+    )
+    database: Literal["connected", "unavailable"] = Field(
+        description="Result of a lightweight database connectivity check"
+    )
 
 
 class ErrorResponse(BaseModel):
-    detail: str
+    detail: str = Field(
+        description="Single human-readable error message",
+        examples=["Enquiry '550e8400-e29b-41d4-a716-446655440000' was not found"],
+    )

@@ -17,8 +17,17 @@ from app.services.sop_matcher import SopMatcherService
 
 logger = logging.getLogger("signaldesk.enquiry")
 
+FOLLOW_UP_SEPARATOR = "\n\n--- follow-up ---\n"
+RESPONSE_DETAIL_MAX_LEN = 500
+
+
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
 
 class EnquiryService:
+    """Enquiry lifecycle, timeline events, and background SOP processing."""
+
     def __init__(self, db: Session) -> None:
         self._db = db
         self._enquiries = EnquiryRepository(db)
@@ -26,6 +35,7 @@ class EnquiryService:
         self._matcher = SopMatcherService()
 
     def create_enquiry(self, payload: EnquiryCreate) -> Enquiry:
+        """Persist a new enquiry in `received` state with an `enquiry_created` event."""
         enquiry = Enquiry(
             id=str(uuid.uuid4()),
             customer_name=payload.customer_name.strip(),
@@ -55,16 +65,15 @@ class EnquiryService:
         return enquiry
 
     def add_follow_up(self, enquiry_id: str, payload: FollowUpCreate) -> Enquiry:
+        """Append a follow-up, reset SOP fields, and return the enquiry for reprocessing."""
         enquiry = self._require_enquiry(enquiry_id)
         self._ensure_open(enquiry, action="follow-up")
 
         follow_up_text = payload.message.strip()
-        enquiry.message = f"{enquiry.message}\n\n--- follow-up ---\n{follow_up_text}"
-        enquiry.updated_at = datetime.now(timezone.utc)
+        enquiry.message = f"{enquiry.message}{FOLLOW_UP_SEPARATOR}{follow_up_text}"
+        self._reset_sop_fields(enquiry)
         enquiry.status = EnquiryStatus.RECEIVED
-        enquiry.matched_sop_id = None
-        enquiry.matched_sop_title = None
-        enquiry.suggested_response = None
+        self._touch(enquiry)
 
         self._record_event(
             enquiry,
@@ -86,6 +95,7 @@ class EnquiryService:
         return enquiry
 
     def escalate_manually(self, enquiry_id: str, payload: EscalateRequest) -> Enquiry:
+        """Mark an enquiry escalated and record the operator reason on the timeline."""
         enquiry = self._require_enquiry(enquiry_id)
         if enquiry.status == EnquiryStatus.ESCALATED:
             raise DuplicateActionError("Enquiry is already escalated")
@@ -94,7 +104,7 @@ class EnquiryService:
 
         reason = payload.reason.strip()
         enquiry.status = EnquiryStatus.ESCALATED
-        enquiry.updated_at = datetime.now(timezone.utc)
+        self._touch(enquiry)
         self._record_event(
             enquiry,
             EventType.MANUAL_ESCALATED,
@@ -112,23 +122,37 @@ class EnquiryService:
             enquiry_id=enquiry.id,
             reason=reason,
             trigger="manual",
+            status=enquiry.status.value,
         )
         return enquiry
 
     def get_history(self, enquiry_id: str) -> Enquiry:
+        """Load enquiry and timeline events (ascending by `created_at`, then `id`)."""
         enquiry = self._enquiries.get_with_events(enquiry_id)
         if enquiry is None:
             raise EnquiryNotFoundError(enquiry_id)
         return enquiry
 
     def process_enquiry(self, enquiry_id: str) -> None:
-        """Background SOP matching: match, update enquiry, or auto-escalate."""
+        """
+        Background SOP matching: transition to `processing`, then `matched` or `escalated`.
+
+        Closed enquiries are ignored. Terminal states (`matched`, `escalated`) may be
+        re-entered when a follow-up resets status to `received` and re-queues this task.
+        """
         enquiry = self._require_enquiry(enquiry_id)
         if enquiry.status == EnquiryStatus.CLOSED:
+            log_event(
+                logger,
+                "task_skipped",
+                "Background task skipped — enquiry closed",
+                enquiry_id=enquiry_id,
+                status=enquiry.status.value,
+            )
             return
 
         enquiry.status = EnquiryStatus.PROCESSING
-        enquiry.updated_at = datetime.now(timezone.utc)
+        self._touch(enquiry)
         self._record_event(
             enquiry,
             EventType.TASK_STARTED,
@@ -136,16 +160,16 @@ class EnquiryService:
         )
         self._enquiries.save(enquiry)
         self._db.commit()
+        self._db.refresh(enquiry)
 
         sop = self._matcher.match(enquiry.message)
-        enquiry = self._require_enquiry(enquiry_id)
 
         if sop:
             enquiry.status = EnquiryStatus.MATCHED
             enquiry.matched_sop_id = sop.id
             enquiry.matched_sop_title = sop.title
             enquiry.suggested_response = sop.suggested_response
-            enquiry.updated_at = datetime.now(timezone.utc)
+            self._touch(enquiry)
             self._record_event(
                 enquiry,
                 EventType.SOP_MATCHED,
@@ -156,7 +180,7 @@ class EnquiryService:
                 enquiry,
                 EventType.RESPONSE_SUGGESTED,
                 "Suggested response ready",
-                detail=sop.suggested_response[:500],
+                detail=sop.suggested_response[:RESPONSE_DETAIL_MAX_LEN],
             )
             self._enquiries.save(enquiry)
             self._db.commit()
@@ -168,10 +192,11 @@ class EnquiryService:
                 enquiry_id=enquiry.id,
                 sop_id=sop.id,
                 sop_title=sop.title,
+                status=enquiry.status.value,
             )
         else:
             enquiry.status = EnquiryStatus.ESCALATED
-            enquiry.updated_at = datetime.now(timezone.utc)
+            self._touch(enquiry)
             self._record_event(
                 enquiry,
                 EventType.AUTO_ESCALATED,
@@ -187,6 +212,7 @@ class EnquiryService:
                 "Auto escalation — no SOP match",
                 enquiry_id=enquiry.id,
                 trigger="auto",
+                status=enquiry.status.value,
             )
 
         log_event(
@@ -204,15 +230,24 @@ class EnquiryService:
         return enquiry
 
     def _ensure_open(self, enquiry: Enquiry, *, action: str) -> None:
+        """Reject follow-ups while processing or closed; allow on escalated threads."""
         if enquiry.status == EnquiryStatus.CLOSED:
             raise InvalidEnquiryStateError(f"Cannot add {action} to a closed enquiry")
         if enquiry.status == EnquiryStatus.PROCESSING:
             raise InvalidEnquiryStateError(
                 f"Enquiry is still being processed; retry {action} shortly"
             )
-        if enquiry.status == EnquiryStatus.ESCALATED and action == "follow-up":
-            # Allow follow-ups on escalated threads; operator may still receive updates.
-            return
+        # Escalated enquiries may still receive customer follow-ups.
+
+    @staticmethod
+    def _touch(enquiry: Enquiry) -> None:
+        enquiry.updated_at = _utc_now()
+
+    @staticmethod
+    def _reset_sop_fields(enquiry: Enquiry) -> None:
+        enquiry.matched_sop_id = None
+        enquiry.matched_sop_title = None
+        enquiry.suggested_response = None
 
     def _record_event(
         self,

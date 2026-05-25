@@ -25,6 +25,5 @@ class EnquiryRepository:
         return enquiry
 
     def save(self, enquiry: Enquiry) -> Enquiry:
-        self._db.add(enquiry)
-        self._db.flush()
-        return enquiry
+        """Persist changes to an enquiry already tracked in the session."""
+        return self.add(enquiry)
