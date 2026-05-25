@@ -4,8 +4,8 @@
       "id": "act-001",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440005",
       "eventType": "enquiry_created",
-      "title": "New lead — Priya Nair",
-      "subtitle": "Awaiting triage · email inbound",
+      "title": "Priya Nair — new email",
+      "subtitle": "Cancel May 25 duct job · house sold",
       "timestamp": "2026-05-24T09:40:00.000Z",
       "channel": "email"
     },
@@ -13,8 +13,8 @@
       "id": "act-002",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440008",
       "eventType": "task_started",
-      "title": "Processing — David Kim",
-      "subtitle": "SOP matching in progress",
+      "title": "David Kim — matching",
+      "subtitle": "Commercial quote follow-up · due before Thu",
       "timestamp": "2026-05-24T09:16:00.000Z",
       "channel": "email"
     },
@@ -22,8 +22,8 @@
       "id": "act-003",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
       "eventType": "follow_up",
-      "title": "Follow-up received — Lisa Park",
-      "subtitle": "Reopened enquiry · finance review",
+      "title": "Lisa Park — follow-up",
+      "subtitle": "Still no deposit · polite 3rd ping",
       "timestamp": "2026-05-24T08:50:00.000Z",
       "channel": "web_chat"
     },
@@ -31,8 +31,8 @@
       "id": "act-004",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
       "eventType": "sop_matched",
-      "title": "SOP matched — Sarah Chen",
-      "subtitle": "Response pending · Pricing & Plans",
+      "title": "Sarah Chen — matched",
+      "subtitle": "Pricing playbook · visit times not confirmed",
       "timestamp": "2026-05-24T08:14:22.000Z",
       "channel": "whatsapp"
     },
@@ -40,8 +40,8 @@
       "id": "act-005",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
       "eventType": "auto_escalated",
-      "title": "Auto-escalated — Elena Rodriguez",
-      "subtitle": "Escalated by SOP fallback · dispatch required",
+      "title": "Elena Rodriguez — escalated",
+      "subtitle": "Thermostat still not working after install",
       "timestamp": "2026-05-24T09:05:00.000Z",
       "channel": "web_chat"
     },
@@ -49,8 +49,8 @@
       "id": "act-006",
       "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
       "eventType": "manual_escalated",
-      "title": "Manual escalation — Marcus Webb",
-      "subtitle": "Awaiting manager review",
+      "title": "Marcus Webb — escalated",
+      "subtitle": "Duplicate charge · waiting on manager",
       "timestamp": "2026-05-24T07:30:00.000Z",
       "channel": "email"
     }
