@@ -5,6 +5,8 @@ import { ConversationHeader } from '../components/conversation/ConversationHeade
 import { SuggestedResponseBlock } from '../components/conversation/SuggestedResponseBlock';
 import { TimelineItem } from '../components/timeline/TimelineItem';
 import { getEnquiryHistory, getFollowUpByEnquiryId } from '../data/mockData';
+import { formatFollowUpDue } from '../utils/labels';
+import { getFollowUpOperationalLabel } from '../utils/operations';
 import { colors, layout, spacing, radius, typography } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -47,12 +49,21 @@ export function ConversationDetailScreen() {
 
       {followUp ? (
         <View style={styles.followUpBanner}>
-          <Text style={styles.followUpLabel}>Scheduled follow-up</Text>
+          <Text style={styles.followUpLabel}>
+            {getFollowUpOperationalLabel(followUp)}
+          </Text>
+          <Text style={styles.followUpDue}>
+            {formatFollowUpDue(followUp.dueAt, followUp.status)}
+          </Text>
           <Text style={styles.followUpNote}>{followUp.note}</Text>
         </View>
       ) : null}
 
-      <SectionHeader isFirst title="Timeline" />
+      <SectionHeader
+        isFirst
+        title="Timeline"
+        actionLabel={`${events.length} events`}
+      />
       {events.length === 0 ? (
         <EmptyState
           compact
@@ -101,9 +112,14 @@ const styles = StyleSheet.create({
     color: colors.warning,
     marginBottom: spacing.xs,
   },
+  followUpDue: {
+    ...typography.bodyMedium,
+    color: colors.textPrimary,
+    marginBottom: spacing.sm,
+  },
   followUpNote: {
     ...typography.body,
-    color: colors.textPrimary,
+    color: colors.textSecondary,
     lineHeight: 20,
   },
 });

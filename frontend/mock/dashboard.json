@@ -5,7 +5,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440005",
       "eventType": "enquiry_created",
       "title": "New lead — Priya Nair",
-      "subtitle": "Cancel service appointment",
+      "subtitle": "Awaiting triage · email inbound",
       "timestamp": "2026-05-24T09:40:00.000Z",
       "channel": "email"
     },
@@ -14,7 +14,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440008",
       "eventType": "task_started",
       "title": "Processing — David Kim",
-      "subtitle": "Commercial HVAC maintenance quote",
+      "subtitle": "SOP matching in progress",
       "timestamp": "2026-05-24T09:16:00.000Z",
       "channel": "email"
     },
@@ -23,7 +23,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440007",
       "eventType": "follow_up",
       "title": "Follow-up received — Lisa Park",
-      "subtitle": "Refund still pending — escalated to finance",
+      "subtitle": "Reopened enquiry · finance review",
       "timestamp": "2026-05-24T08:50:00.000Z",
       "channel": "web_chat"
     },
@@ -32,7 +32,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440001",
       "eventType": "sop_matched",
       "title": "SOP matched — Sarah Chen",
-      "subtitle": "Pricing & Plans — suggested response ready",
+      "subtitle": "Response pending · Pricing & Plans",
       "timestamp": "2026-05-24T08:14:22.000Z",
       "channel": "whatsapp"
     },
@@ -41,7 +41,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440003",
       "eventType": "auto_escalated",
       "title": "Auto-escalated — Elena Rodriguez",
-      "subtitle": "Post-install thermostat failure",
+      "subtitle": "Escalated by SOP fallback · dispatch required",
       "timestamp": "2026-05-24T09:05:00.000Z",
       "channel": "web_chat"
     },
@@ -50,7 +50,7 @@
       "enquiryId": "550e8400-e29b-41d4-a716-446655440002",
       "eventType": "manual_escalated",
       "title": "Manual escalation — Marcus Webb",
-      "subtitle": "Duplicate charge requires manager approval",
+      "subtitle": "Awaiting manager review",
       "timestamp": "2026-05-24T07:30:00.000Z",
       "channel": "email"
     }

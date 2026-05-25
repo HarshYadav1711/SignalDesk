@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import type { FollowUp } from '../../types';
 import { ChannelBadge, FollowUpStatusBadge } from '../badges';
 import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
-import { formatDueTime } from '../../utils/labels';
+import { formatFollowUpDue } from '../../utils/labels';
+import { getFollowUpOperationalLabel } from '../../utils/operations';
 
 interface FollowUpCardProps {
   followUp: FollowUp;
@@ -19,13 +20,18 @@ export function FollowUpCard({ followUp, onPress }: FollowUpCardProps) {
         <FollowUpStatusBadge status={followUp.status} />
       </View>
 
+      <Text style={styles.operational} numberOfLines={1}>
+        {getFollowUpOperationalLabel(followUp)}
+      </Text>
+
       <Text style={styles.subject} numberOfLines={1}>
         {followUp.subject}
       </Text>
 
       <View style={styles.dueRow}>
-        <Text style={styles.dueLabel}>Due</Text>
-        <Text style={styles.dueTime}>{formatDueTime(followUp.dueAt)}</Text>
+        <Text style={styles.dueTime}>
+          {formatFollowUpDue(followUp.dueAt, followUp.status)}
+        </Text>
       </View>
 
       <Text style={styles.note} numberOfLines={2}>
@@ -34,6 +40,9 @@ export function FollowUpCard({ followUp, onPress }: FollowUpCardProps) {
 
       <View style={styles.footer}>
         <ChannelBadge channel={followUp.channel} compact />
+        <Text style={styles.linked} numberOfLines={1}>
+          Linked enquiry · {followUp.conversationStatus.replace('_', ' ')}
+        </Text>
       </View>
     </>
   );
@@ -63,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.xs,
+    marginBottom: 2,
     gap: spacing.sm,
   },
   customerName: {
@@ -72,20 +81,18 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
   },
+  operational: {
+    ...typography.captionMedium,
+    color: colors.textSecondary,
+    marginBottom: spacing.xs,
+  },
   subject: {
     ...typography.bodyMedium,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   dueRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: spacing.sm,
     marginBottom: spacing.sm,
-  },
-  dueLabel: {
-    ...typography.captionMedium,
-    color: colors.textMuted,
   },
   dueTime: {
     ...typography.bodyMedium,
@@ -100,5 +107,14 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    rowGap: spacing.xs,
+  },
+  linked: {
+    ...typography.caption,
+    color: colors.textMuted,
+    flex: 1,
+    textTransform: 'capitalize',
   },
 });

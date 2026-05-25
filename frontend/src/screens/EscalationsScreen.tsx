@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, EmptyState } from '../components/layout';
 import { EscalationCard } from '../components/cards';
-import { getEscalations } from '../data/mockData';
+import { getEscalations, getOperationalCounts } from '../data/mockData';
+import { getSectionQueueHint } from '../utils/operations';
 import { colors, layout } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -13,13 +15,22 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function EscalationsScreen() {
   const navigation = useNavigation<Nav>();
   const escalations = getEscalations();
+  const counts = useMemo(() => getOperationalCounts(), []);
+  const queueHint = getSectionQueueHint('escalations', {
+    total: escalations.length,
+    manager: counts.manager,
+  });
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScreenHeader
         title="Escalations"
-        subtitle="Cases requiring manager or senior tech action"
-        badge={escalations.length > 0 ? String(escalations.length) : undefined}
+        subtitle={queueHint}
+        badge={
+          escalations.length > 0
+            ? `${escalations.length} unresolved`
+            : undefined
+        }
       />
       <FlatList
         data={escalations}

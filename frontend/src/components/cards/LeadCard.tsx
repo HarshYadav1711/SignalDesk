@@ -3,13 +3,21 @@ import type { Enquiry } from '../../types';
 import { ChannelBadge, StatusBadge } from '../badges';
 import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
 import { formatRelativeTime, truncate } from '../../utils/labels';
+import { getOperationalLabel, getLeadMetaLine } from '../../utils/operations';
 
 interface LeadCardProps {
   enquiry: Enquiry;
   onPress: () => void;
+  queueIndex?: number;
 }
 
-export function LeadCard({ enquiry, onPress }: LeadCardProps) {
+export function LeadCard({ enquiry, onPress, queueIndex }: LeadCardProps) {
+  const operational = getOperationalLabel(enquiry);
+  const metaLine =
+    queueIndex !== undefined
+      ? getLeadMetaLine(enquiry, queueIndex)
+      : operational;
+
   return (
     <Pressable
       onPress={onPress}
@@ -25,11 +33,15 @@ export function LeadCard({ enquiry, onPress }: LeadCardProps) {
         <Text style={styles.time}>{formatRelativeTime(enquiry.updatedAt)}</Text>
       </View>
 
+      <Text style={styles.operational} numberOfLines={1}>
+        {metaLine}
+      </Text>
+
       <Text style={styles.subject} numberOfLines={1}>
         {enquiry.subject}
       </Text>
       <Text style={styles.preview} numberOfLines={2}>
-        {truncate(enquiry.message, 120)}
+        {truncate(enquiry.message.split('--- follow-up ---')[0].trim(), 120)}
       </Text>
 
       <View style={styles.footer}>
@@ -56,7 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.xs,
+    marginBottom: 2,
     gap: spacing.sm,
   },
   titleBlock: {
@@ -82,6 +94,11 @@ const styles = StyleSheet.create({
     ...typography.caption,
     color: colors.textMuted,
     flexShrink: 0,
+  },
+  operational: {
+    ...typography.captionMedium,
+    color: colors.textSecondary,
+    marginBottom: spacing.xs,
   },
   subject: {
     ...typography.bodyMedium,

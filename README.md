@@ -107,12 +107,6 @@ Regenerate PNGs after UI token changes: see the [_render/](docs/screenshots/_ren
 
 ---
 
-## Walkthrough video
-
-Record a single end-to-end demo at **`docs/walkthrough/walkthrough.mp4`**. Suggested flow (~3–5 min): start API → create enquiries (match + auto-escalate) → poll history → open the mobile app across all tabs. Guide: [docs/walkthrough/README.md](docs/walkthrough/README.md).
-
----
-
 ## Engineering decisions
 
 **BackgroundTasks (not Celery/Redis)** — SOP matching is fast in-process substring search over five playbooks. `BackgroundTasks` returns the HTTP response immediately while matching runs after the response; each task uses its own DB session. That is enough for a single-worker prototype. If matching later calls slow external services, the same service methods can move behind a queue without changing route contracts.

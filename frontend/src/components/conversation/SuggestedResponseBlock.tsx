@@ -17,6 +17,7 @@ export function SuggestedResponseBlock({
         <Ionicons name="document-text-outline" size={18} color={colors.success} />
         <Text style={styles.headerText}>Suggested response — {sopTitle}</Text>
       </View>
+      <Text style={styles.status}>Response pending · not sent to customer</Text>
       <Text style={styles.response}>{response}</Text>
       <Text style={styles.hint}>Copy and send via the customer's channel</Text>
     </View>
@@ -36,13 +37,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    marginBottom: spacing.md,
+    marginBottom: spacing.xs,
   },
   headerText: {
     ...typography.captionMedium,
     color: colors.success,
     flex: 1,
     lineHeight: 18,
+  },
+  status: {
+    ...typography.caption,
+    color: colors.textSecondary,
+    marginBottom: spacing.md,
   },
   response: {
     ...typography.body,
@@ -52,6 +58,6 @@ const styles = StyleSheet.create({
   },
   hint: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: colors.textMuted,
   },
 });

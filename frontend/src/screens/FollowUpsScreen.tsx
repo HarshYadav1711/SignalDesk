@@ -5,40 +5,51 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, EmptyState } from '../components/layout';
 import { FollowUpCard } from '../components/cards';
-import { getFollowUps } from '../data/mockData';
+import { getFollowUps, getOperationalCounts } from '../data/mockData';
 import type { FollowUp, FollowUpStatus } from '../types';
 import { colors, layout, spacing, typography } from '../theme';
 import { followUpStatusLabels } from '../utils/labels';
+import { getSectionQueueHint } from '../utils/operations';
 import type { RootStackParamList } from '../navigation/types';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 const sectionOrder: FollowUpStatus[] = ['overdue', 'due_today', 'upcoming'];
 
+const sectionHints: Record<FollowUpStatus, string> = {
+  overdue: 'Past due — contact customer',
+  due_today: 'Due before end of shift',
+  upcoming: 'Scheduled callbacks',
+};
+
 export function FollowUpsScreen() {
   const navigation = useNavigation<Nav>();
   const followUps = getFollowUps();
+  const counts = useMemo(() => getOperationalCounts(), []);
 
   const sections = useMemo(() => {
     return sectionOrder
       .map((status) => ({
         title: followUpStatusLabels[status],
         status,
+        hint: sectionHints[status],
         data: followUps.filter((f) => f.status === status),
       }))
       .filter((s) => s.data.length > 0);
   }, [followUps]);
 
-  const dueCount = followUps.filter(
-    (f) => f.status === 'overdue' || f.status === 'due_today'
-  ).length;
+  const queueHint = getSectionQueueHint('followups', {
+    total: followUps.length,
+    due: followUps.filter((f) => f.status === 'due_today').length,
+    overdue: counts.overdueFollowUps,
+  });
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScreenHeader
         title="Follow-ups"
-        subtitle="Callbacks and promises due for operators"
-        badge={dueCount > 0 ? `${dueCount} due` : undefined}
+        subtitle={queueHint}
+        badge={counts.dueFollowUps > 0 ? `${counts.dueFollowUps} due` : undefined}
       />
       <SectionList
         sections={sections}
@@ -62,8 +73,11 @@ export function FollowUpsScreen() {
               section.status === sectionOrder[0] && styles.sectionHeaderFirst,
             ]}
           >
-            <Text style={styles.sectionTitle}>{section.title}</Text>
-            <Text style={styles.sectionCount}>{section.data.length}</Text>
+            <View style={styles.sectionTitleRow}>
+              <Text style={styles.sectionTitle}>{section.title}</Text>
+              <Text style={styles.sectionCount}>{section.data.length}</Text>
+            </View>
+            <Text style={styles.sectionHint}>{section.hint}</Text>
           </View>
         )}
         renderItem={({ item }: { item: FollowUp }) => (
@@ -96,14 +110,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     marginTop: spacing.xl,
     marginBottom: spacing.md,
   },
   sectionHeaderFirst: {
     marginTop: spacing.md,
+  },
+  sectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 2,
   },
   sectionTitle: {
     ...typography.sectionTitle,
@@ -111,6 +128,10 @@ const styles = StyleSheet.create({
   },
   sectionCount: {
     ...typography.captionMedium,
+    color: colors.textMuted,
+  },
+  sectionHint: {
+    ...typography.caption,
     color: colors.textMuted,
   },
 });

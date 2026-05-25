@@ -28,6 +28,8 @@ export type FollowUpStatus = 'overdue' | 'due_today' | 'upcoming';
 
 export type Priority = 'high' | 'medium' | 'low';
 
+export type EscalationSource = 'auto' | 'manual';
+
 export interface Enquiry {
   id: string;
   customerName: string;
@@ -44,6 +46,10 @@ export interface Enquiry {
   priority: Priority;
   unread: boolean;
   escalationReason?: string | null;
+  /** How the case entered escalation (mock / display). */
+  escalationSource?: EscalationSource;
+  /** Optional override for operational context line on cards. */
+  operationalLabel?: string;
 }
 
 export interface EnquiryEvent {

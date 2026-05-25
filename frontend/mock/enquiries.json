@@ -32,7 +32,8 @@
       "updatedAt": "2026-05-24T07:30:00.000Z",
       "priority": "high",
       "unread": true,
-      "escalationReason": "Duplicate charge over $200 — requires manager approval"
+      "escalationReason": "Duplicate charge over $200 — requires manager approval",
+      "escalationSource": "manual"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440003",
@@ -49,7 +50,8 @@
       "updatedAt": "2026-05-24T09:05:00.000Z",
       "priority": "high",
       "unread": false,
-      "escalationReason": "Post-install failure within 24h — dispatch senior tech"
+      "escalationReason": "Post-install failure within 24h — dispatch senior tech",
+      "escalationSource": "auto"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440004",
@@ -107,7 +109,7 @@
       "customerName": "Lisa Park",
       "channel": "web_chat",
       "subject": "Refund for cancelled install",
-      "message": "I cancelled my install 3 weeks ago but still haven't received the $500 deposit back. Order ref #HL-2291.",
+      "message": "I cancelled my install 3 weeks ago but still haven't received the $500 deposit back. Order ref #HL-2291.\n\n--- follow-up ---\nIt's been three weeks — I still don't have the deposit. Please escalate.",
       "status": "escalated",
       "conversationStatus": "escalated",
       "matchedSopId": "sop-refund",
@@ -117,7 +119,8 @@
       "updatedAt": "2026-05-24T08:50:00.000Z",
       "priority": "high",
       "unread": false,
-      "escalationReason": "Refund pending 21+ days — finance follow-up required"
+      "escalationReason": "Refund pending 21+ days — finance follow-up required",
+      "escalationSource": "manual"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440008",

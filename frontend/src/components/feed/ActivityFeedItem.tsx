@@ -3,6 +3,7 @@ import type { ActivityItem } from '../../types';
 import { ChannelBadge } from '../badges';
 import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
 import { formatRelativeTime } from '../../utils/labels';
+import { getActivityContextLabel } from '../../utils/operations';
 
 interface ActivityFeedItemProps {
   item: ActivityItem;
@@ -10,6 +11,8 @@ interface ActivityFeedItemProps {
 }
 
 export function ActivityFeedItem({ item, onPress }: ActivityFeedItemProps) {
+  const context = getActivityContextLabel(item);
+
   const inner = (
     <>
       <View style={styles.topRow}>
@@ -23,6 +26,7 @@ export function ActivityFeedItem({ item, onPress }: ActivityFeedItemProps) {
       </Text>
       <View style={styles.badgeRow}>
         <ChannelBadge channel={item.channel} compact />
+        <Text style={styles.context}>{context}</Text>
       </View>
     </>
   );
@@ -75,5 +79,11 @@ const styles = StyleSheet.create({
   badgeRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: spacing.sm,
+    flexWrap: 'wrap',
+  },
+  context: {
+    ...typography.caption,
+    color: colors.textMuted,
   },
 });

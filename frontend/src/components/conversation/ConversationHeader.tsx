@@ -2,29 +2,35 @@ import { View, Text, StyleSheet } from 'react-native';
 import type { Enquiry } from '../../types';
 import { ChannelBadge, StatusBadge } from '../badges';
 import { colors, spacing, radius, typography } from '../../theme';
-import { formatDateTime } from '../../utils/labels';
+import { formatDateTime, formatLastActivity } from '../../utils/labels';
+import { getOperationalLabel } from '../../utils/operations';
 
 interface ConversationHeaderProps {
   enquiry: Enquiry;
 }
 
 export function ConversationHeader({ enquiry }: ConversationHeaderProps) {
+  const initialMessage = enquiry.message.split('--- follow-up ---')[0].trim();
+
   return (
     <View style={styles.container}>
       <Text style={styles.customerName}>{enquiry.customerName}</Text>
       <Text style={styles.subject}>{enquiry.subject}</Text>
+      <Text style={styles.operational}>{getOperationalLabel(enquiry)}</Text>
       <View style={styles.badges}>
         <ChannelBadge channel={enquiry.channel} />
         <StatusBadge status={enquiry.conversationStatus} />
       </View>
       <View style={styles.messageBox}>
         <Text style={styles.messageLabel}>Latest message</Text>
-        <Text style={styles.message}>{enquiry.message}</Text>
-        <Text style={styles.meta}>Received {formatDateTime(enquiry.createdAt)}</Text>
+        <Text style={styles.message}>{initialMessage}</Text>
+        <Text style={styles.meta}>
+          Opened {formatDateTime(enquiry.createdAt)} · {formatLastActivity(enquiry.updatedAt)}
+        </Text>
       </View>
       {enquiry.escalationReason ? (
         <View style={styles.escalationBox}>
-          <Text style={styles.escalationLabel}>Escalation</Text>
+          <Text style={styles.escalationLabel}>Escalation on file</Text>
           <Text style={styles.escalationText}>{enquiry.escalationReason}</Text>
         </View>
       ) : null}
@@ -45,6 +51,11 @@ const styles = StyleSheet.create({
   subject: {
     ...typography.bodyMedium,
     color: colors.textSecondary,
+    marginBottom: spacing.xs,
+  },
+  operational: {
+    ...typography.captionMedium,
+    color: colors.primary,
     marginBottom: spacing.md,
   },
   badges: {
@@ -74,6 +85,7 @@ const styles = StyleSheet.create({
   meta: {
     ...typography.caption,
     color: colors.textMuted,
+    lineHeight: 16,
   },
   escalationBox: {
     marginTop: spacing.md,

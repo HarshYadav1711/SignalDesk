@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import type { EnquiryEvent } from '../../types';
 import { colors, spacing, typography } from '../../theme';
 import { eventTypeLabels, formatDateTime } from '../../utils/labels';
+import { getTimelineOperationalHint } from '../../utils/operations';
 
 interface TimelineItemProps {
   event: EnquiryEvent;
@@ -20,6 +21,7 @@ const eventAccent: Record<string, string> = {
 
 export function TimelineItem({ event, isLast }: TimelineItemProps) {
   const accent = eventAccent[event.eventType] ?? colors.textMuted;
+  const hint = getTimelineOperationalHint(event);
 
   return (
     <View style={styles.row}>
@@ -32,6 +34,11 @@ export function TimelineItem({ event, isLast }: TimelineItemProps) {
           <Text style={styles.eventLabel}>{eventTypeLabels[event.eventType]}</Text>
           <Text style={styles.time}>{formatDateTime(event.createdAt)}</Text>
         </View>
+        {hint ? (
+          <Text style={styles.hint} numberOfLines={1}>
+            {hint}
+          </Text>
+        ) : null}
         <Text style={styles.summary}>{event.summary}</Text>
         {event.detail ? <Text style={styles.detail}>{event.detail}</Text> : null}
       </View>
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     gap: spacing.sm,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   eventLabel: {
     ...typography.captionMedium,
@@ -82,6 +89,11 @@ const styles = StyleSheet.create({
   time: {
     ...typography.caption,
     color: colors.textMuted,
+  },
+  hint: {
+    ...typography.caption,
+    color: colors.textSecondary,
+    marginBottom: 4,
   },
   summary: {
     ...typography.bodyMedium,

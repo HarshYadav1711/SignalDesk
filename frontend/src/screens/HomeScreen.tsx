@@ -4,9 +4,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, SectionHeader, EmptyState } from '../components/layout';
 import { formatOperationsSubtitle } from '../utils/labels';
+import { getSectionQueueHint } from '../utils/operations';
 import { MetricCard, LeadCard } from '../components/cards';
 import { ActivityFeedItem } from '../components/feed/ActivityFeedItem';
-import { getDashboard } from '../data/mockData';
+import { getDashboard, getOperationalCounts } from '../data/mockData';
 import { colors, layout, spacing } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -14,17 +15,27 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export function HomeScreen() {
   const navigation = useNavigation<Nav>();
+  const counts = getOperationalCounts();
   const { metrics, activity, priorityQueue } = getDashboard();
 
   const openConversation = (enquiryId: string) => {
     navigation.navigate('ConversationDetail', { enquiryId });
   };
 
+  const priorityHint = getSectionQueueHint('priority', {
+    total: priorityQueue.length,
+    high: priorityQueue.filter((e) => e.priority === 'high').length,
+  });
+
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScreenHeader
         title="Operations"
-        subtitle={formatOperationsSubtitle()}
+        subtitle={formatOperationsSubtitle({
+          open: counts.open,
+          escalations: counts.escalations,
+          dueFollowUps: counts.dueFollowUps,
+        })}
       />
       <ScrollView
         style={styles.scroll}
@@ -40,7 +51,7 @@ export function HomeScreen() {
         <SectionHeader
           isFirst
           title="Priority queue"
-          actionLabel={`${priorityQueue.length} items`}
+          actionLabel={priorityHint}
         />
         {priorityQueue.length === 0 ? (
           <EmptyState
@@ -51,16 +62,20 @@ export function HomeScreen() {
             hint="Escalations and urgent leads appear here automatically"
           />
         ) : (
-          priorityQueue.map((enquiry) => (
+          priorityQueue.map((enquiry, index) => (
             <LeadCard
               key={enquiry.id}
               enquiry={enquiry}
+              queueIndex={index}
               onPress={() => openConversation(enquiry.id)}
             />
           ))
         )}
 
-        <SectionHeader title="Recent activity" />
+        <SectionHeader
+          title="Recent activity"
+          actionLabel={`${activity.length} updates today`}
+        />
         {activity.length === 0 ? (
           <EmptyState
             compact

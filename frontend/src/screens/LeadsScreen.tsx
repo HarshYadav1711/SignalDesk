@@ -5,7 +5,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, EmptyState } from '../components/layout';
 import { LeadCard } from '../components/cards';
-import { getLeads } from '../data/mockData';
+import { getLeads, getOperationalCounts } from '../data/mockData';
+import { getSectionQueueHint } from '../utils/operations';
 import { colors, layout } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -14,13 +15,18 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function LeadsScreen() {
   const navigation = useNavigation<Nav>();
   const leads = useMemo(() => getLeads(), []);
-  const unreadCount = useMemo(() => leads.filter((l) => l.unread).length, [leads]);
+  const counts = useMemo(() => getOperationalCounts(), []);
+  const unreadCount = counts.unread;
+  const queueHint = getSectionQueueHint('leads', {
+    open: leads.length,
+    unread: unreadCount,
+  });
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScreenHeader
         title="Leads"
-        subtitle="Inbound enquiries awaiting triage or reply"
+        subtitle={queueHint}
         badge={unreadCount > 0 ? `${unreadCount} unread` : undefined}
       />
       <FlatList

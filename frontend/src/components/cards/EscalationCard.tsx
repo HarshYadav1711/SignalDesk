@@ -13,6 +13,10 @@ import {
   typography,
 } from '../../theme';
 import { formatRelativeTime } from '../../utils/labels';
+import {
+  getOperationalLabel,
+  getEscalationUrgency,
+} from '../../utils/operations';
 
 interface EscalationCardProps {
   enquiry: Enquiry;
@@ -21,6 +25,7 @@ interface EscalationCardProps {
 
 export function EscalationCard({ enquiry, onPress }: EscalationCardProps) {
   const priorityStyle = priorityColors[enquiry.priority];
+  const operational = getOperationalLabel(enquiry);
 
   return (
     <Pressable
@@ -36,6 +41,13 @@ export function EscalationCard({ enquiry, onPress }: EscalationCardProps) {
         </View>
       </View>
 
+      <Text style={styles.operational} numberOfLines={1}>
+        {operational}
+      </Text>
+      <Text style={styles.urgency} numberOfLines={1}>
+        {getEscalationUrgency(enquiry)}
+      </Text>
+
       <Text style={styles.customerName}>{enquiry.customerName}</Text>
       <Text style={styles.subject} numberOfLines={1}>
         {enquiry.subject}
@@ -43,7 +55,7 @@ export function EscalationCard({ enquiry, onPress }: EscalationCardProps) {
 
       {enquiry.escalationReason ? (
         <View style={styles.reasonBox}>
-          <Text style={styles.reasonLabel}>Escalation reason</Text>
+          <Text style={styles.reasonLabel}>On file</Text>
           <Text style={styles.reasonText}>{enquiry.escalationReason}</Text>
         </View>
       ) : null}
@@ -71,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: spacing.sm,
+    marginBottom: spacing.xs,
   },
   priorityPill: {
     paddingHorizontal: badgeLayout.paddingHorizontal,
@@ -82,6 +94,16 @@ const styles = StyleSheet.create({
     ...typography.captionMedium,
     textTransform: 'capitalize',
     fontSize: badgeLayout.fontSize,
+  },
+  operational: {
+    ...typography.captionMedium,
+    color: colors.danger,
+    marginBottom: 2,
+  },
+  urgency: {
+    ...typography.caption,
+    color: colors.textMuted,
+    marginBottom: spacing.sm,
   },
   customerName: {
     ...typography.cardTitle,

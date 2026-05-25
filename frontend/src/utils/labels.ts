@@ -41,16 +41,14 @@ function dayOffsetFromToday(date: Date, now = new Date()): number {
   return Math.round((startOfDay(now).getTime() - startOfDay(date).getTime()) / msPerDay);
 }
 
-const timeStyle: Intl.DateTimeFormatOptions = {
-  hour: 'numeric',
-  minute: '2-digit',
-};
+function formatClock(date: Date): string {
+  return date.toLocaleTimeString(undefined, {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
 
-const dateStyle: Intl.DateTimeFormatOptions = {
-  month: 'short',
-  day: 'numeric',
-};
-
+/** Compact relative time for list cards: `2m ago`, `Yesterday, 4:32 PM`. */
 export function formatRelativeTime(isoDate: string): string {
   const date = new Date(isoDate);
   const now = new Date();
@@ -61,50 +59,78 @@ export function formatRelativeTime(isoDate: string): string {
 
   if (diffMins < 1) return 'Just now';
   if (dayOffset === 0) {
-    if (diffMins < 60) return `${diffMins} min ago`;
-    return `${diffHours} hr ago`;
+    if (diffMins < 60) return `${diffMins}m ago`;
+    return `${diffHours}h ago`;
   }
-  if (dayOffset === 1) return 'Yesterday';
-  if (dayOffset > 1 && dayOffset < 7) return `${dayOffset} days ago`;
+  if (dayOffset === 1) return `Yesterday, ${formatClock(date)}`;
+  if (dayOffset > 1 && dayOffset < 7) return `${dayOffset}d ago`;
 
   const includeYear = date.getFullYear() !== now.getFullYear();
   return date.toLocaleDateString(undefined, {
-    ...dateStyle,
+    month: 'short',
+    day: 'numeric',
     ...(includeYear ? { year: 'numeric' as const } : {}),
   });
 }
 
-export function formatDueTime(isoDate: string): string {
+/** Follow-up due line: `Due in 18 mins`, `Overdue by 2h`, `Tomorrow, 10:00 AM`. */
+export function formatFollowUpDue(isoDate: string, status: FollowUpStatus): string {
   const date = new Date(isoDate);
   const now = new Date();
+  const diffMs = date.getTime() - now.getTime();
+  const diffMins = Math.round(Math.abs(diffMs) / 60000);
+  const diffHours = Math.floor(diffMins / 60);
   const dayOffset = dayOffsetFromToday(date, now);
-  const time = date.toLocaleTimeString(undefined, timeStyle);
+  const clock = formatClock(date);
 
-  if (dayOffset === 0) return `Today, ${time}`;
-  if (dayOffset === 1) return `Yesterday, ${time}`;
-  if (dayOffset === -1) return `Tomorrow, ${time}`;
+  if (status === 'overdue' || diffMs < 0) {
+    if (diffMins < 60) return `Overdue by ${diffMins}m`;
+    if (diffHours < 24 && dayOffset === 0) return `Overdue by ${diffHours}h`;
+    if (dayOffset === 1) return `Overdue since yesterday, ${clock}`;
+    return `Overdue · ${formatRelativeTime(isoDate)}`;
+  }
+
+  if (dayOffset === 0) {
+    if (diffMins < 60) return `Due in ${diffMins} mins`;
+    return `Today, ${clock}`;
+  }
+  if (dayOffset === -1) return `Tomorrow, ${clock}`;
+  if (dayOffset === 1) return `Yesterday, ${clock}`;
 
   return date.toLocaleString(undefined, {
-    ...dateStyle,
-    ...timeStyle,
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
   });
+}
+
+/** Legacy alias used in conversation follow-up banner. */
+export function formatDueTime(isoDate: string): string {
+  return formatFollowUpDue(isoDate, 'due_today');
 }
 
 export function formatDateTime(isoDate: string): string {
   const date = new Date(isoDate);
   const now = new Date();
   const dayOffset = dayOffsetFromToday(date, now);
-  const time = date.toLocaleTimeString(undefined, timeStyle);
+  const clock = formatClock(date);
 
-  if (dayOffset === 0) return `Today, ${time}`;
-  if (dayOffset === 1) return `Yesterday, ${time}`;
+  if (dayOffset === 0) return `Today, ${clock}`;
+  if (dayOffset === 1) return `Yesterday, ${clock}`;
 
   const includeYear = date.getFullYear() !== now.getFullYear();
   return date.toLocaleString(undefined, {
-    ...dateStyle,
+    month: 'short',
+    day: 'numeric',
     ...(includeYear ? { year: 'numeric' as const } : {}),
-    ...timeStyle,
+    hour: 'numeric',
+    minute: '2-digit',
   });
+}
+
+export function formatLastActivity(isoDate: string): string {
+  return `Last activity ${formatRelativeTime(isoDate)}`;
 }
 
 export function truncate(text: string, maxLength: number): string {
@@ -112,12 +138,19 @@ export function truncate(text: string, maxLength: number): string {
   return `${text.slice(0, maxLength - 1)}…`;
 }
 
-export function formatOperationsSubtitle(): string {
+export function formatOperationsSubtitle(
+  counts?: { open: number; escalations: number; dueFollowUps: number }
+): string {
   const now = new Date();
   const day = now.toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'short',
     day: 'numeric',
   });
-  return `${day} · Operations overview`;
+  const clock = formatClock(now);
+  if (!counts) return `${day} · ${clock}`;
+  const parts = [`${day} · ${clock}`];
+  if (counts.escalations > 0) parts.push(`${counts.escalations} escalated`);
+  if (counts.dueFollowUps > 0) parts.push(`${counts.dueFollowUps} follow-ups due`);
+  return parts.join(' · ');
 }
