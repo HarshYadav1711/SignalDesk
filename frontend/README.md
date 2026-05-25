@@ -6,63 +6,57 @@ Expo (React Native) operations dashboard for triaging leads, escalations, and fo
 
 ## Quick start
 
-**Node.js:** use **v22 LTS** (or v20). **Expo SDK 54** (matches current Expo Go from the Play Store). Node 25 is not recommended.
+**Node.js:** use **v22 LTS** (or v20). See `.nvmrc`. **Expo SDK 54** requires Node 18–22; Node 23+ is not supported.
 
-### Windows (no `nvm` installed)
-
-Install Node 22, **restart your terminal**, then set up the app:
-
-Node 25 (`OpenJS.NodeJS`) and Node 22 (`OpenJS.NodeJS.22`) are **different** winget packages. If `node -v` still shows v25 after install, remove 25 first:
-
-```powershell
-cd D:\Fun\SignalDesk\frontend
-.\fix-node22.ps1
-```
-
-Or manually:
-
-```powershell
-winget uninstall -e --id OpenJS.NodeJS
-winget install -e --id OpenJS.NodeJS.22
-```
-
-**Close and reopen** the terminal (required for PATH), then check `node -v` shows **v22.x**.
-
-After that:
-
-```powershell
-cd frontend
-node -v          # should show v22.x
-npm run setup    # clean install + Expo peer deps
-npm start
-```
-
-Optional: [NVM for Windows](https://github.com/coreybutler/nvm-windows) — `winget install -e --id CoreyButler.NVMforWindows`, then `nvm install 22` and `nvm use 22`.
-
-### macOS / Linux (with nvm)
+From the repository root:
 
 ```bash
 cd frontend
-nvm install 22
-nvm use 22
+node -v    # should report v20.x or v22.x
+npm install
+npm start
+```
+
+With [nvm](https://github.com/nvm-sh/nvm) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows):
+
+```bash
+cd frontend
+nvm install
+nvm use
+npm install
+npm start
+```
+
+On Windows without nvm, install [Node.js 22 LTS](https://nodejs.org/) or use `winget install -e --id OpenJS.NodeJS.22`. If Node 25 is installed via a different package id, uninstall it before installing 22, then restart your terminal.
+
+Optional Windows helper (winget switch from Node 25 → 22):
+
+```powershell
+cd frontend
+.\fix-node22.ps1
 npm run setup
 npm start
 ```
 
-### If `npm start` fails with `MODULE_NOT_FOUND` (e.g. `minipass`)
+`npm run setup` runs a clean install script on Windows (`setup.ps1`). On other platforms, use `npm install` and, if needed:
+
+```bash
+npx expo install expo-asset expo-font expo-constants expo-file-system babel-preset-expo
+```
+
+Use Expo Go or a simulator (`i` / `a` in the Expo terminal). Typecheck: `npm run typecheck`.
+
+### If `npm start` fails with `MODULE_NOT_FOUND`
 
 Corrupted `node_modules` from a partial install. Clean and reinstall:
 
-```powershell
+```bash
 cd frontend
-Remove-Item -Recurse -Force node_modules
-Remove-Item -Force package-lock.json
+rm -rf node_modules package-lock.json   # Windows: Remove-Item -Recurse -Force node_modules; Remove-Item package-lock.json
 npm install
 npx expo install expo-asset expo-font expo-constants expo-file-system
 npm start
 ```
-
-`npm run typecheck` — TypeScript check.
 
 ## Screens
 

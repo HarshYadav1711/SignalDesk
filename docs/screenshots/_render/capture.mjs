@@ -30,7 +30,6 @@ for (const { html, png } of screens) {
     path: path.join(outDir, png),
     type: 'png',
   });
-  console.log(`Wrote ${png}`);
 }
 
 await browser.close();

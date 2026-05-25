@@ -1,5 +1,5 @@
-# Switch Windows from Node 25 → Node 22 for Expo SDK 52
-# Run in PowerShell (not inside Python venv):  cd frontend; .\fix-node22.ps1
+# Optional: switch Windows from Node 25 to Node 22 LTS (Expo SDK 54).
+# From repo root: cd frontend; .\fix-node22.ps1
 
 $ErrorActionPreference = "Stop"
 
@@ -17,6 +17,6 @@ winget install -e --id OpenJS.NodeJS.22 --accept-package-agreements --accept-sou
 Write-Host ""
 Write-Host "Close this terminal and open a NEW one, then run:" -ForegroundColor Green
 Write-Host "  node -v          # expect v22.x" -ForegroundColor Cyan
-Write-Host "  cd D:\Fun\SignalDesk\frontend" -ForegroundColor Cyan
+Write-Host "  cd frontend" -ForegroundColor Cyan
 Write-Host "  npm run setup" -ForegroundColor Cyan
 Write-Host "  npm start" -ForegroundColor Cyan

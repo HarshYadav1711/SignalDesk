@@ -9,8 +9,7 @@ FastAPI enquiry API with background SOP keyword matching and operational history
 ```bash
 cd backend
 python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # macOS/Linux
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000

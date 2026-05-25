@@ -1,4 +1,4 @@
-# SignalDesk frontend — Windows setup (no nvm required)
+# SignalDesk frontend — optional Windows setup (clean install + Expo peers)
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 

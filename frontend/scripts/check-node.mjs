@@ -2,18 +2,11 @@ const major = Number(process.versions.node.split('.')[0]);
 
 if (major >= 23) {
   console.error(`
-SignalDesk frontend requires Node.js 18–22 (Expo SDK 52).
+SignalDesk frontend requires Node.js 18–22 (Expo SDK 54).
 
 You are on Node ${process.versions.node}.
 
-Windows — pick one:
-  winget install -e --id OpenJS.NodeJS.22
-  (restart the terminal, then run npm start again)
-
-Or install NVM for Windows, then: nvm install 22 && nvm use 22
-  winget install -e --id CoreyButler.NVMforWindows
-
-See frontend/README.md for details.
+Use Node 22 LTS (see .nvmrc and frontend/README.md).
 `);
   process.exit(1);
 }

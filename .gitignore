@@ -29,8 +29,13 @@ Thumbs.db
 # Docs — screenshot render tooling (PNGs are committed)
 docs/screenshots/_render/node_modules/
 docs/screenshots/_render/package-lock.json
+docs/screenshots/_render/package.json
 
-# Walkthrough video (large; add locally before submit)
+# Walkthrough video (large binary; optional local add)
 docs/walkthrough/*.mp4
 docs/walkthrough/*.webm
 docs/walkthrough/*.mov
+
+# Logs and local DB artifacts
+*.log
+signaldesk.db

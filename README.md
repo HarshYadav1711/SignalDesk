@@ -2,7 +2,7 @@
 
 SignalDesk helps a small business triage inbound customer enquiries: accept messages, match them to keyword-based SOP playbooks (no AI), record an operational timeline, and surface leads, escalations, and follow-ups in a mobile operations dashboard.
 
-This repository is a **single monorepo** with separate **`/backend`** and **`/frontend`** folders, one combined README (this file), and a walkthrough video referenced below — matching the bonus submission format.
+This repository is a **monorepo** with separate **`backend/`** and **`frontend/`** tracks, shared documentation under **`docs/`**, and an optional walkthrough video.
 
 ---
 
@@ -56,10 +56,7 @@ Optional: short clips per tab in `docs/screenshots/` if your submission allows m
 ```bash
 cd backend
 python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
@@ -137,7 +134,7 @@ flowchart TB
 
 **Choice:** Default `DATABASE_URL` is `sqlite:///./signaldesk.db`.
 
-**Rationale:** Zero infrastructure for reviewers — clone, `pip install`, run. SQLAlchemy models and repositories work unchanged with PostgreSQL via `DATABASE_URL=postgresql+psycopg://...`.
+**Rationale:** Zero extra infrastructure for local development — clone, `pip install`, run. SQLAlchemy models and repositories work unchanged with PostgreSQL via `DATABASE_URL=postgresql+psycopg://...`.
 
 **Trade-off:** SQLite suits a single worker and demo load. Production multi-worker deployments should use PostgreSQL (driver not pinned in `requirements.txt`; add `psycopg` when needed). Schema is created with `create_all` — no Alembic migrations in scope.
 
@@ -145,7 +142,7 @@ flowchart TB
 
 **Choice:** Centralized tokens in `src/theme/` (`colors`, `spacing`, `typography`) and per-component `StyleSheet` — no CSS-in-JS library, no NativeWind.
 
-**Rationale:** Keeps dependencies free and minimal, matches React Native defaults, and enforces consistent channel/status colors across cards and badges. Easy for reviewers to scan without learning a styling DSL.
+**Rationale:** Keeps dependencies free and minimal, matches React Native defaults, and enforces consistent channel/status colors across cards and badges without a styling DSL.
 
 **Trade-off:** More verbose than utility-class frameworks; acceptable for a focused ops UI.
 
@@ -302,18 +299,18 @@ See [docs/product-contract.md](docs/product-contract.md) for statuses, channels,
 
 ---
 
-## Assignment alignment
+## Repository map
 
-| Requirement | Location |
-|-------------|----------|
+| Area | Location |
+|------|----------|
 | Backend API (enquiry workflow, SOP, history) | `backend/` |
 | React Native / Expo dashboard | `frontend/` |
 | Bottom tabs: Home, Leads, Escalations, Follow-ups | `frontend/src/navigation/` |
 | Conversation detail stack screen | `ConversationDetail` |
-| Mock data in `/mock` | `frontend/mock/` |
+| Mock data | `frontend/mock/` |
 | Reusable UI components | `frontend/src/components/` |
-| No auth / no paid deps | Enforced |
-| Bonus: single repo, `/backend` + `/frontend`, combined README, walkthrough | This repo |
+| Shared domain contract | `docs/product-contract.md` |
+| API examples and UI screenshots | `docs/api/`, `docs/screenshots/` |
 
 ---
 

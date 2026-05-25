@@ -1,6 +1,6 @@
 # Walkthrough video
 
-End-to-end demo for reviewers. Place the final recording here:
+End-to-end product demo. Place the recording here:
 
 **`docs/walkthrough/walkthrough.mp4`**
 
@@ -32,7 +32,7 @@ End-to-end demo for reviewers. Place the final recording here:
 
 ---
 
-## Before you submit
+## Checklist
 
 - [ ] Video file added under `docs/walkthrough/`
 - [ ] Root README walkthrough link points to your file

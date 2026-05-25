@@ -1,6 +1,6 @@
 # UI screenshots
 
-Static captures of the SignalDesk Expo dashboard for submission review. Data matches the Northline HVAC scenario in `frontend/mock/`.
+Static captures of the SignalDesk Expo dashboard. Data matches the Northline HVAC demo scenario in `frontend/mock/`.
 
 | Screen | Image | Caption |
 |--------|-------|---------|
@@ -54,9 +54,8 @@ HTML mocks live in [`_render/`](_render/). To refresh PNGs after UI token change
 
 ```bash
 cd docs/screenshots/_render
-npm install playwright@1.49.1
-npx playwright install chromium
-node capture.mjs
+npx --yes -p playwright@1.49.1 playwright install chromium
+npx --yes -p playwright@1.49.1 node capture.mjs
 ```
 
 Optional short clips (e.g. `leads.mp4`) may be added here if your submission allows multiple media files. The primary walkthrough belongs in [`../walkthrough/`](../walkthrough/README.md).
