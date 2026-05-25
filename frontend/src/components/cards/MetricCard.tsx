@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import type { DashboardMetric } from '../../types';
-import { colors, spacing, radius, metricAccentColors, typography } from '../../theme';
+import { colors, spacing, cardBase, metricAccentColors, typography } from '../../theme';
 
 interface MetricCardProps {
   metric: DashboardMetric;
@@ -21,8 +21,10 @@ export function MetricCard({ metric }: MetricCardProps) {
       <Text style={styles.label}>{metric.label}</Text>
       <Text style={[styles.value, { color: accent.text }]}>{metric.value}</Text>
       <View style={styles.trendRow}>
-        <Ionicons name={trendIcon} size={14} color={colors.textMuted} />
-        <Text style={styles.trend}>{metric.trend.label}</Text>
+        <Ionicons name={trendIcon} size={13} color={colors.textMuted} />
+        <Text style={styles.trend} numberOfLines={1}>
+          {metric.trend.label}
+        </Text>
       </View>
     </View>
   );
@@ -30,13 +32,12 @@ export function MetricCard({ metric }: MetricCardProps) {
 
 const styles = StyleSheet.create({
   card: {
+    ...cardBase,
+    marginBottom: 0,
     flex: 1,
     minWidth: '46%',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
+    minHeight: 108,
+    justifyContent: 'space-between',
   },
   label: {
     ...typography.captionMedium,
@@ -45,13 +46,12 @@ const styles = StyleSheet.create({
   },
   value: {
     ...typography.metricValue,
-    fontSize: 26,
     marginBottom: spacing.sm,
   },
   trendRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: spacing.xs,
   },
   trend: {
     ...typography.caption,

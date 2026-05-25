@@ -48,11 +48,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    marginTop: 4,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginTop: 5,
   },
   line: {
     flex: 1,

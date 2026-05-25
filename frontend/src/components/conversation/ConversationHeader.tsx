@@ -20,9 +20,7 @@ export function ConversationHeader({ enquiry }: ConversationHeaderProps) {
       <View style={styles.messageBox}>
         <Text style={styles.messageLabel}>Latest message</Text>
         <Text style={styles.message}>{enquiry.message}</Text>
-        <Text style={styles.meta}>
-          Received {formatDateTime(enquiry.createdAt)}
-        </Text>
+        <Text style={styles.meta}>Received {formatDateTime(enquiry.createdAt)}</Text>
       </View>
       {enquiry.escalationReason ? (
         <View style={styles.escalationBox}>
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
     ...typography.screenTitle,
     fontSize: 20,
     color: colors.textPrimary,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   subject: {
     ...typography.bodyMedium,
@@ -59,6 +57,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceMuted,
     borderRadius: radius.md,
     padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   messageLabel: {
     ...typography.captionMedium,
@@ -80,11 +80,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dangerMuted,
     borderRadius: radius.md,
     padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: colors.dangerMuted,
   },
   escalationLabel: {
     ...typography.captionMedium,
     color: colors.danger,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   escalationText: {
     ...typography.body,

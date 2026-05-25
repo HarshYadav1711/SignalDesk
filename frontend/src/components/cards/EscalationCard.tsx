@@ -2,7 +2,16 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import type { Enquiry } from '../../types';
 import { ChannelBadge, StatusBadge } from '../badges';
-import { colors, spacing, radius, priorityColors, typography } from '../../theme';
+import {
+  colors,
+  spacing,
+  radius,
+  badgeLayout,
+  cardBase,
+  cardPressed,
+  priorityColors,
+  typography,
+} from '../../theme';
 import { formatRelativeTime } from '../../utils/labels';
 
 interface EscalationCardProps {
@@ -19,7 +28,7 @@ export function EscalationCard({ enquiry, onPress }: EscalationCardProps) {
       style={({ pressed }) => [styles.card, pressed && styles.pressed]}
     >
       <View style={styles.alertRow}>
-        <Ionicons name="alert-circle" size={18} color={colors.danger} />
+        <Ionicons name="alert-circle" size={16} color={colors.danger} />
         <View style={[styles.priorityPill, { backgroundColor: priorityStyle.bg }]}>
           <Text style={[styles.priorityText, { color: priorityStyle.text }]}>
             {enquiry.priority} priority
@@ -50,17 +59,13 @@ export function EscalationCard({ enquiry, onPress }: EscalationCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.lg,
-    borderWidth: 1,
+    ...cardBase,
     borderColor: colors.dangerMuted,
-    borderLeftWidth: 4,
+    borderLeftWidth: 3,
     borderLeftColor: colors.danger,
-    marginBottom: spacing.md,
   },
   pressed: {
-    opacity: 0.92,
+    ...cardPressed,
   },
   alertRow: {
     flexDirection: 'row',
@@ -69,21 +74,22 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   priorityPill: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
+    paddingHorizontal: badgeLayout.paddingHorizontal,
+    paddingVertical: badgeLayout.paddingVerticalCompact,
+    borderRadius: badgeLayout.radius,
   },
   priorityText: {
     ...typography.captionMedium,
     textTransform: 'capitalize',
+    fontSize: badgeLayout.fontSize,
   },
   customerName: {
     ...typography.cardTitle,
     color: colors.textPrimary,
-    marginBottom: 2,
+    marginBottom: spacing.xs,
   },
   subject: {
-    ...typography.bodyMedium,
+    ...typography.body,
     color: colors.textSecondary,
     marginBottom: spacing.md,
   },
@@ -96,7 +102,7 @@ const styles = StyleSheet.create({
   reasonLabel: {
     ...typography.captionMedium,
     color: colors.danger,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   reasonText: {
     ...typography.body,
@@ -108,6 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: spacing.sm,
+    rowGap: spacing.xs,
   },
   time: {
     ...typography.caption,

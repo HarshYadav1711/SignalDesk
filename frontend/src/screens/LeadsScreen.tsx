@@ -33,8 +33,8 @@ export function LeadsScreen() {
           <EmptyState
             icon="checkmark-circle-outline"
             title="Inbox clear"
-            message="No open leads right now. New enquiries will appear here as they arrive."
-            hint="Check Home for recent activity"
+            message="No open leads in the queue. New inbound enquiries will appear here."
+            hint="See Home for the latest operational activity"
           />
         }
         renderItem={({ item }) => (
@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
   listWrap: {
     flex: 1,
     backgroundColor: colors.background,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: layout.sheetRadius,
+    borderTopRightRadius: layout.sheetRadius,
   },
   list: {
     padding: layout.screenPadding,
-    paddingBottom: 32,
+    paddingBottom: layout.contentBottom,
     flexGrow: 1,
   },
 });

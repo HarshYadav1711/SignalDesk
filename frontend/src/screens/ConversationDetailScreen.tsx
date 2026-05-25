@@ -5,7 +5,7 @@ import { ConversationHeader } from '../components/conversation/ConversationHeade
 import { SuggestedResponseBlock } from '../components/conversation/SuggestedResponseBlock';
 import { TimelineItem } from '../components/timeline/TimelineItem';
 import { getEnquiryHistory, getFollowUpByEnquiryId } from '../data/mockData';
-import { colors, layout, spacing } from '../theme';
+import { colors, layout, spacing, radius, typography } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 
 type DetailRoute = RouteProp<RootStackParamList, 'ConversationDetail'>;
@@ -21,8 +21,8 @@ export function ConversationDetailScreen() {
         <EmptyState
           icon="search-outline"
           title="Conversation not found"
-          message="This enquiry is not in the current dataset. Check the ID or return to the list."
-          hint="Use the back button to return to Leads or Escalations"
+          message="This enquiry is not in the current dataset. Return to a list view to pick another thread."
+          hint="Use Back to return to Leads or Escalations"
         />
       </View>
     );
@@ -52,12 +52,13 @@ export function ConversationDetailScreen() {
         </View>
       ) : null}
 
-      <SectionHeader title="Timeline" />
+      <SectionHeader isFirst title="Timeline" />
       {events.length === 0 ? (
         <EmptyState
+          compact
           icon="time-outline"
           title="No events yet"
-          message="Activity for this enquiry will appear here as it is processed."
+          message="Processing and operator actions for this enquiry will appear here."
         />
       ) : (
         events.map((event, index) => (
@@ -79,29 +80,29 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: layout.screenPadding,
-    paddingBottom: spacing.xxxl,
+    paddingBottom: layout.contentBottom,
   },
   missing: {
     flex: 1,
     backgroundColor: colors.background,
     justifyContent: 'center',
+    padding: layout.screenPadding,
   },
   followUpBanner: {
     backgroundColor: colors.warningMuted,
-    borderRadius: 10,
+    borderRadius: radius.md,
     padding: spacing.lg,
     marginBottom: spacing.lg,
     borderWidth: 1,
     borderColor: colors.warningBorder,
   },
   followUpLabel: {
-    fontSize: 12,
-    fontWeight: '600',
+    ...typography.captionMedium,
     color: colors.warning,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   followUpNote: {
-    fontSize: 14,
+    ...typography.body,
     color: colors.textPrimary,
     lineHeight: 20,
   },

@@ -7,13 +7,15 @@ interface EmptyStateProps {
   title: string;
   message: string;
   hint?: string;
+  /** Less vertical padding when nested inside a scroll section */
+  compact?: boolean;
 }
 
-export function EmptyState({ icon, title, message, hint }: EmptyStateProps) {
+export function EmptyState({ icon, title, message, hint, compact }: EmptyStateProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, compact && styles.containerCompact]}>
       <View style={styles.iconWrap}>
-        <Ionicons name={icon} size={32} color={colors.textMuted} />
+        <Ionicons name={icon} size={28} color={colors.textMuted} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
@@ -25,20 +27,25 @@ export function EmptyState({ icon, title, message, hint }: EmptyStateProps) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingVertical: spacing.xxxl,
-    paddingHorizontal: spacing.xxl,
+    paddingVertical: spacing.xxl,
+    paddingHorizontal: spacing.xl,
+  },
+  containerCompact: {
+    paddingVertical: spacing.xl,
   },
   iconWrap: {
-    width: 64,
-    height: 64,
-    borderRadius: radius.lg,
-    backgroundColor: colors.surfaceMuted,
+    width: 56,
+    height: 56,
+    borderRadius: radius.md,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: spacing.md,
   },
   title: {
-    ...typography.cardTitle,
+    ...typography.emptyTitle,
     color: colors.textPrimary,
     textAlign: 'center',
     marginBottom: spacing.sm,
@@ -47,12 +54,15 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 21,
+    maxWidth: 300,
   },
   hint: {
     ...typography.caption,
     color: colors.textMuted,
     textAlign: 'center',
     marginTop: spacing.md,
+    lineHeight: 18,
+    maxWidth: 280,
   },
 });

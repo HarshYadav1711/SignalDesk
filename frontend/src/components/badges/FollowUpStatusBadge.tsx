@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import type { FollowUpStatus } from '../../types';
-import { followUpStatusColors } from '../../theme';
+import { followUpStatusColors, badgeLayout, typography } from '../../theme';
 import { followUpStatusLabels } from '../../utils/labels';
-import { typography } from '../../theme';
 
 interface FollowUpStatusBadgeProps {
   status: FollowUpStatus;
@@ -22,13 +21,13 @@ export function FollowUpStatusBadge({ status }: FollowUpStatusBadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    paddingHorizontal: badgeLayout.paddingHorizontal,
+    paddingVertical: badgeLayout.paddingVertical,
+    borderRadius: badgeLayout.radius,
   },
   label: {
     ...typography.badge,
     textTransform: 'none',
-    fontSize: 11,
+    fontSize: badgeLayout.fontSize,
   },
 });

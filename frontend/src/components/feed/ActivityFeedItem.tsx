@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import type { ActivityItem } from '../../types';
 import { ChannelBadge } from '../badges';
-import { colors, spacing, radius, typography } from '../../theme';
+import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
 import { formatRelativeTime } from '../../utils/labels';
 
 interface ActivityFeedItemProps {
@@ -21,7 +21,9 @@ export function ActivityFeedItem({ item, onPress }: ActivityFeedItemProps) {
       <Text style={styles.subtitle} numberOfLines={2}>
         {item.subtitle}
       </Text>
-      <ChannelBadge channel={item.channel} compact />
+      <View style={styles.badgeRow}>
+        <ChannelBadge channel={item.channel} compact />
+      </View>
     </>
   );
 
@@ -41,35 +43,37 @@ export function ActivityFeedItem({ item, onPress }: ActivityFeedItemProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: spacing.sm,
-    gap: spacing.sm,
+    ...cardBase,
   },
   pressed: {
-    backgroundColor: colors.surfaceMuted,
+    ...cardPressed,
   },
   topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: spacing.sm,
+    marginBottom: spacing.xs,
   },
   title: {
     ...typography.bodyMedium,
     color: colors.textPrimary,
     flex: 1,
+    minWidth: 0,
   },
   time: {
     ...typography.caption,
     color: colors.textMuted,
+    flexShrink: 0,
   },
   subtitle: {
     ...typography.body,
     color: colors.textSecondary,
     lineHeight: 20,
+    marginBottom: spacing.sm,
+  },
+  badgeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

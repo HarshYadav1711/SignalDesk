@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import type { FollowUp } from '../../types';
 import { ChannelBadge, FollowUpStatusBadge } from '../badges';
-import { colors, spacing, radius, typography } from '../../theme';
+import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
 import { formatDueTime } from '../../utils/labels';
 
 interface FollowUpCardProps {
@@ -13,7 +13,9 @@ export function FollowUpCard({ followUp, onPress }: FollowUpCardProps) {
   const content = (
     <>
       <View style={styles.header}>
-        <Text style={styles.customerName}>{followUp.customerName}</Text>
+        <Text style={styles.customerName} numberOfLines={1}>
+          {followUp.customerName}
+        </Text>
         <FollowUpStatusBadge status={followUp.status} />
       </View>
 
@@ -52,32 +54,27 @@ export function FollowUpCard({ followUp, onPress }: FollowUpCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: spacing.md,
+    ...cardBase,
   },
   pressed: {
-    opacity: 0.92,
-    backgroundColor: colors.surfaceMuted,
+    ...cardPressed,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing.xs,
+    gap: spacing.sm,
   },
   customerName: {
     ...typography.cardTitle,
     color: colors.textPrimary,
     flex: 1,
-    marginRight: spacing.sm,
+    minWidth: 0,
   },
   subject: {
     ...typography.bodyMedium,
-    color: colors.textSecondary,
+    color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   dueRow: {

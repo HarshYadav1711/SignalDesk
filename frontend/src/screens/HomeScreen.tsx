@@ -37,13 +37,18 @@ export function HomeScreen() {
           ))}
         </View>
 
-        <SectionHeader title="Priority queue" actionLabel={`${priorityQueue.length} items`} />
+        <SectionHeader
+          isFirst
+          title="Priority queue"
+          actionLabel={`${priorityQueue.length} items`}
+        />
         {priorityQueue.length === 0 ? (
           <EmptyState
+            compact
             icon="flag-outline"
-            title="Priority queue clear"
+            title="Queue clear"
             message="No high-priority enquiries need attention right now."
-            hint="New escalations and urgent leads will surface here"
+            hint="Escalations and urgent leads appear here automatically"
           />
         ) : (
           priorityQueue.map((enquiry) => (
@@ -58,9 +63,10 @@ export function HomeScreen() {
         <SectionHeader title="Recent activity" />
         {activity.length === 0 ? (
           <EmptyState
+            compact
             icon="pulse-outline"
-            title="No recent activity"
-            message="Operational events will appear here as enquiries are processed."
+            title="No activity yet"
+            message="Timeline events from enquiry processing will show here."
           />
         ) : (
           activity.map((item) => (
@@ -84,17 +90,17 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 1,
     backgroundColor: colors.background,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: layout.sheetRadius,
+    borderTopRightRadius: layout.sheetRadius,
   },
   content: {
     padding: layout.screenPadding,
-    paddingBottom: spacing.xxxl,
+    paddingBottom: layout.contentBottom,
   },
   metricsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.md,
-    marginBottom: spacing.sm,
+    gap: layout.cardGap,
+    marginBottom: spacing.xs,
   },
 });

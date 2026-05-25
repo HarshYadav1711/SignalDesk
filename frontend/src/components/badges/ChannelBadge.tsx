@@ -1,9 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import type { Channel } from '../../types';
-import { channelColors } from '../../theme';
+import { channelColors, badgeLayout, typography } from '../../theme';
 import { channelLabels } from '../../utils/labels';
-import { typography } from '../../theme';
 
 const channelIcons: Record<Channel, keyof typeof Ionicons.glyphMap> = {
   email: 'mail-outline',
@@ -22,7 +21,11 @@ export function ChannelBadge({ channel, compact }: ChannelBadgeProps) {
 
   return (
     <View style={[styles.badge, { backgroundColor: palette.bg }, compact && styles.compact]}>
-      <Ionicons name={channelIcons[channel]} size={compact ? 12 : 13} color={palette.icon} />
+      <Ionicons
+        name={channelIcons[channel]}
+        size={compact ? badgeLayout.iconSizeCompact : badgeLayout.iconSize}
+        color={palette.icon}
+      />
       <Text style={[styles.label, { color: palette.text }, compact && styles.labelCompact]}>
         {channelLabels[channel]}
       </Text>
@@ -34,21 +37,21 @@ const styles = StyleSheet.create({
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    gap: badgeLayout.gap,
+    paddingHorizontal: badgeLayout.paddingHorizontal,
+    paddingVertical: badgeLayout.paddingVertical,
+    borderRadius: badgeLayout.radius,
   },
   compact: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: badgeLayout.paddingHorizontalCompact,
+    paddingVertical: badgeLayout.paddingVerticalCompact,
   },
   label: {
     ...typography.badge,
     textTransform: 'none',
-    fontSize: 12,
+    fontSize: badgeLayout.fontSize,
   },
   labelCompact: {
-    fontSize: 11,
+    fontSize: badgeLayout.fontSize,
   },
 });

@@ -32,40 +32,78 @@ export const eventTypeLabels: Record<EventType, string> = {
   response_suggested: 'Response ready',
 };
 
+function startOfDay(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
+function dayOffsetFromToday(date: Date, now = new Date()): number {
+  const msPerDay = 86400000;
+  return Math.round((startOfDay(now).getTime() - startOfDay(date).getTime()) / msPerDay);
+}
+
+const timeStyle: Intl.DateTimeFormatOptions = {
+  hour: 'numeric',
+  minute: '2-digit',
+};
+
+const dateStyle: Intl.DateTimeFormatOptions = {
+  month: 'short',
+  day: 'numeric',
+};
+
 export function formatRelativeTime(isoDate: string): string {
   const date = new Date(isoDate);
   const now = new Date();
+  const dayOffset = dayOffsetFromToday(date, now);
   const diffMs = now.getTime() - date.getTime();
   const diffMins = Math.floor(diffMs / 60000);
   const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
 
   if (diffMins < 1) return 'Just now';
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
+  if (dayOffset === 0) {
+    if (diffMins < 60) return `${diffMins} min ago`;
+    return `${diffHours} hr ago`;
+  }
+  if (dayOffset === 1) return 'Yesterday';
+  if (dayOffset > 1 && dayOffset < 7) return `${dayOffset} days ago`;
 
+  const includeYear = date.getFullYear() !== now.getFullYear();
   return date.toLocaleDateString(undefined, {
-    month: 'short',
-    day: 'numeric',
+    ...dateStyle,
+    ...(includeYear ? { year: 'numeric' as const } : {}),
   });
 }
 
 export function formatDueTime(isoDate: string): string {
   const date = new Date(isoDate);
-  return date.toLocaleTimeString(undefined, {
-    hour: 'numeric',
-    minute: '2-digit',
+  const now = new Date();
+  const dayOffset = dayOffsetFromToday(date, now);
+  const time = date.toLocaleTimeString(undefined, timeStyle);
+
+  if (dayOffset === 0) return `Today, ${time}`;
+  if (dayOffset === 1) return `Yesterday, ${time}`;
+  if (dayOffset === -1) return `Tomorrow, ${time}`;
+
+  return date.toLocaleString(undefined, {
+    ...dateStyle,
+    ...timeStyle,
   });
 }
 
 export function formatDateTime(isoDate: string): string {
   const date = new Date(isoDate);
+  const now = new Date();
+  const dayOffset = dayOffsetFromToday(date, now);
+  const time = date.toLocaleTimeString(undefined, timeStyle);
+
+  if (dayOffset === 0) return `Today, ${time}`;
+  if (dayOffset === 1) return `Yesterday, ${time}`;
+
+  const includeYear = date.getFullYear() !== now.getFullYear();
   return date.toLocaleString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
+    ...dateStyle,
+    ...(includeYear ? { year: 'numeric' as const } : {}),
+    ...timeStyle,
   });
 }
 
@@ -78,8 +116,8 @@ export function formatOperationsSubtitle(): string {
   const now = new Date();
   const day = now.toLocaleDateString(undefined, {
     weekday: 'long',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   });
-  return `${day} — triage queue overview`;
+  return `${day} · Operations overview`;
 }

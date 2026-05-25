@@ -31,8 +31,8 @@ export function EscalationsScreen() {
           <EmptyState
             icon="shield-checkmark-outline"
             title="No escalations"
-            message="All enquiries are within normal handling. Escalated cases will show here with the reason attached."
-            hint="Auto-escalations trigger when SOP matching fails or rules fire"
+            message="All enquiries are within normal handling. Escalated cases appear here with the reason on file."
+            hint="Auto-escalation runs when no SOP keyword match is found"
           />
         }
         renderItem={({ item }) => (
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   listWrap: {
     flex: 1,
     backgroundColor: colors.background,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: layout.sheetRadius,
+    borderTopRightRadius: layout.sheetRadius,
   },
   list: {
     padding: layout.screenPadding,
-    paddingBottom: 32,
+    paddingBottom: layout.contentBottom,
     flexGrow: 1,
   },
 });

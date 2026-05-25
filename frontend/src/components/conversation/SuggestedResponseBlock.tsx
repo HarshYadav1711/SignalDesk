@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     ...typography.captionMedium,
     color: colors.success,
     flex: 1,
+    lineHeight: 18,
   },
   response: {
     ...typography.body,

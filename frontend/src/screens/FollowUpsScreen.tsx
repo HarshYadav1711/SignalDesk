@@ -51,12 +51,17 @@ export function FollowUpsScreen() {
           <EmptyState
             icon="calendar-outline"
             title="No follow-ups scheduled"
-            message="When you schedule callbacks or set reminders on enquiries, they'll be grouped here by due date."
-            hint="Overdue items appear at the top"
+            message="Callbacks and reminders on enquiries are grouped here by due date when scheduled."
+            hint="Overdue items are listed first"
           />
         }
         renderSectionHeader={({ section }) => (
-          <View style={styles.sectionHeader}>
+          <View
+            style={[
+              styles.sectionHeader,
+              section.status === sectionOrder[0] && styles.sectionHeaderFirst,
+            ]}
+          >
             <Text style={styles.sectionTitle}>{section.title}</Text>
             <Text style={styles.sectionCount}>{section.data.length}</Text>
           </View>
@@ -82,24 +87,27 @@ const styles = StyleSheet.create({
   listWrap: {
     flex: 1,
     backgroundColor: colors.background,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: layout.sheetRadius,
+    borderTopRightRadius: layout.sheetRadius,
   },
   list: {
     padding: layout.screenPadding,
-    paddingBottom: 32,
+    paddingBottom: layout.contentBottom,
     flexGrow: 1,
   },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: spacing.lg,
+    marginTop: spacing.xl,
     marginBottom: spacing.md,
+  },
+  sectionHeaderFirst: {
+    marginTop: spacing.md,
   },
   sectionTitle: {
     ...typography.sectionTitle,
-    color: colors.textPrimary,
+    color: colors.textSecondary,
   },
   sectionCount: {
     ...typography.captionMedium,

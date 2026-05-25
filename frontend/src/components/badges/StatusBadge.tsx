@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import type { ConversationStatus } from '../../types';
-import { statusColors } from '../../theme';
+import { statusColors, badgeLayout, typography } from '../../theme';
 import { statusLabels } from '../../utils/labels';
-import { typography } from '../../theme';
 
 interface StatusBadgeProps {
   status: ConversationStatus;
@@ -20,13 +19,13 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    paddingHorizontal: badgeLayout.paddingHorizontal,
+    paddingVertical: badgeLayout.paddingVertical,
+    borderRadius: badgeLayout.radius,
   },
   label: {
     ...typography.badge,
     textTransform: 'none',
-    fontSize: 11,
+    fontSize: badgeLayout.fontSize,
   },
 });

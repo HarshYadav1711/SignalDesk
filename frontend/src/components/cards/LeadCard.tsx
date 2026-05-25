@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import type { Enquiry } from '../../types';
 import { ChannelBadge, StatusBadge } from '../badges';
-import { colors, spacing, radius, typography } from '../../theme';
+import { colors, spacing, cardBase, cardPressed, typography } from '../../theme';
 import { formatRelativeTime, truncate } from '../../utils/labels';
 
 interface LeadCardProps {
@@ -47,34 +47,31 @@ export function LeadCard({ enquiry, onPress }: LeadCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: spacing.md,
+    ...cardBase,
   },
   pressed: {
-    opacity: 0.92,
-    backgroundColor: colors.surfaceMuted,
+    ...cardPressed,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing.xs,
+    gap: spacing.sm,
   },
   titleBlock: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
     gap: spacing.sm,
+    minWidth: 0,
   },
   unreadDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: colors.primary,
+    flexShrink: 0,
   },
   customerName: {
     ...typography.cardTitle,
@@ -84,6 +81,7 @@ const styles = StyleSheet.create({
   time: {
     ...typography.caption,
     color: colors.textMuted,
+    flexShrink: 0,
   },
   subject: {
     ...typography.bodyMedium,
@@ -94,17 +92,20 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     marginBottom: spacing.md,
+    lineHeight: 20,
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: spacing.sm,
+    rowGap: spacing.xs,
   },
   sopTag: {
-    ...typography.caption,
+    ...typography.captionMedium,
     color: colors.success,
     flex: 1,
+    minWidth: 80,
     textAlign: 'right',
   },
 });

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, spacing, typography } from '../../theme';
+import { colors, layout, spacing, radius, typography } from '../../theme';
 
 interface ScreenHeaderProps {
   title: string;
@@ -33,7 +33,7 @@ export function ScreenHeader({ title, subtitle, badge }: ScreenHeaderProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.headerBackground,
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: layout.screenPadding,
     paddingTop: spacing.md,
     paddingBottom: spacing.lg,
   },
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   brandMark: {
     width: 36,
     height: 36,
-    borderRadius: 10,
+    borderRadius: radius.md,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eyebrow: {
-    ...typography.caption,
-    color: colors.textMuted,
+    ...typography.captionMedium,
+    color: colors.headerSubtitle,
     marginBottom: 2,
   },
   title: {
@@ -68,15 +68,17 @@ const styles = StyleSheet.create({
     color: colors.headerSubtitle,
     marginTop: spacing.sm,
     marginLeft: 48,
+    lineHeight: 20,
   },
   badge: {
     backgroundColor: colors.danger,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: layout.headerBadgeRadius,
   },
   badgeText: {
     ...typography.captionMedium,
     color: colors.textInverse,
+    fontSize: 11,
   },
 });

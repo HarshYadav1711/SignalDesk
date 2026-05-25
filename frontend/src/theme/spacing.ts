@@ -19,5 +19,8 @@ export const radius = {
 export const layout = {
   screenPadding: 16,
   cardGap: 12,
-  tabBarHeight: 56,
+  tabBarHeight: 60,
+  contentBottom: 28,
+  sheetRadius: 16,
+  headerBadgeRadius: 12,
 } as const;

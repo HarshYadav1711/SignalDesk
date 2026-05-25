@@ -8,7 +8,7 @@ import { LeadsScreen } from '../screens/LeadsScreen';
 import { EscalationsScreen } from '../screens/EscalationsScreen';
 import { FollowUpsScreen } from '../screens/FollowUpsScreen';
 import { ConversationDetailScreen } from '../screens/ConversationDetailScreen';
-import { colors } from '../theme';
+import { colors, layout } from '../theme';
 import { getEscalations, getFollowUps, getLeads } from '../data/mockData';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -42,13 +42,14 @@ function MainTabs() {
         tabBarStyle: {
           borderTopColor: colors.border,
           backgroundColor: colors.surface,
-          height: 60,
-          paddingBottom: 8,
+          height: layout.tabBarHeight,
+          paddingBottom: 10,
           paddingTop: 6,
         },
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '500',
+          marginTop: -2,
         },
         tabBarIcon: ({ color, size }) => {
           const icons: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> = {
@@ -107,6 +108,10 @@ export function RootNavigator() {
             headerBackTitle: 'Back',
             headerTintColor: colors.primary,
             headerStyle: { backgroundColor: colors.surface },
+            headerTitleStyle: {
+              fontSize: 17,
+              fontWeight: '600',
+            },
             headerShadowVisible: false,
           }}
         />

@@ -7,14 +7,15 @@ export const typography: Record<string, TextStyle> = {
     letterSpacing: -0.3,
   },
   sectionTitle: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '600',
-    letterSpacing: -0.2,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
-    letterSpacing: -0.2,
+    letterSpacing: -0.15,
   },
   body: {
     fontSize: 14,
@@ -37,9 +38,15 @@ export const typography: Record<string, TextStyle> = {
     lineHeight: 16,
   },
   metricValue: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
-    letterSpacing: -0.5,
+    letterSpacing: -0.4,
+    lineHeight: 28,
+  },
+  emptyTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    letterSpacing: -0.1,
   },
   badge: {
     fontSize: 11,
