@@ -11,4 +11,4 @@ Shared references for the API and Expo dashboard.
 
 Update the product contract before changing types or behavior in either track.
 
-Repository overview: [../README.md](../README.md).
+Repository overview: [../README.md](../README.md) · Commit message guide: [../CONTRIBUTING.md](../CONTRIBUTING.md).

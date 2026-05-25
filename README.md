@@ -17,7 +17,7 @@ The API is the source of truth. The dashboard runs on **mock data** today; shape
 | [`docs/screenshots/`](docs/screenshots/README.md) | Dashboard UI captures |
 | [`docs/walkthrough/`](docs/walkthrough/README.md) | End-to-end demo video guide |
 
-Track quick starts: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md)
+Track quick starts: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commit conventions: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 

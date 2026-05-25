@@ -1,0 +1,14 @@
+# <type>(<scope>): <imperative summary — max ~72 chars>
+#
+# Types: feat | fix | docs | refactor | test | chore
+# Scopes: backend | frontend | docs  (omit for repo-wide chore)
+#
+# Examples:
+#   feat(backend): add manual escalate endpoint
+#   fix(frontend): prevent double navigation to conversation detail
+#   docs: align API README with 422 error shape
+#   refactor(backend): centralize domain error HTTP mapping
+#   chore: ignore local SQLite database files
+#
+# Body (optional): explain WHY if not obvious from the diff.
+# Separate backend / frontend / docs when possible.
