@@ -15,7 +15,6 @@ from app.http_errors import error_response
 from app.logging_config import configure_logging
 from app.middleware import RequestLoggingMiddleware
 from app.routers import enquiry, health
-from app.schemas import ErrorResponse
 
 
 @asynccontextmanager
