@@ -1,10 +1,8 @@
 # Walkthrough video
 
-End-to-end demo file goes here:
+**Watch or download:** [SignalDesk demo on Google Drive](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link) — file: `SignalDesk.mp4`.
 
-**`docs/walkthrough/walkthrough.mp4`**
-
-(`walkthrough.webm` / `walkthrough.mov` also fine.) The file is gitignored (large binary); reviewers can follow this guide without the video.
+The video is hosted on Drive (not in git). This folder holds the recording guide only.
 
 ---
 
@@ -32,9 +30,9 @@ End-to-end demo file goes here:
 
 ---
 
-## Checklist
+## Checklist (for re-recording)
 
-- [ ] Video file added under `docs/walkthrough/` (optional if only screenshots + API demo are submitted)
+- [ ] Video uploaded to the [Drive folder](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link) or linked from the root [README](../../README.md)
 - [ ] Recording follows the flow above (API create/poll + mobile tabs)
 - [ ] Audio is audible; UI text is readable at 1080p
 - [ ] API and mobile app segments are both included

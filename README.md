@@ -15,7 +15,7 @@ The API owns state. The app still uses **mock data**; types and fields match the
 | [`docs/product-contract.md`](docs/product-contract.md) | Shared domain model (statuses, channels, events, field names) |
 | [`docs/api/`](docs/api/README.md) | REST examples, status codes, errors |
 | [`docs/screenshots/`](docs/screenshots/README.md) | Dashboard UI captures |
-| [`docs/walkthrough/`](docs/walkthrough/README.md) | End-to-end demo video guide |
+| [`docs/walkthrough/`](docs/walkthrough/README.md) | End-to-end demo video ([Google Drive](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link)) |
 
 Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commits: [CONTRIBUTING.md](CONTRIBUTING.md) · [development workflow](docs/development-workflow.md)
 
@@ -28,10 +28,14 @@ Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](
 | Shared product contract | [`docs/product-contract.md`](docs/product-contract.md) | Field names align with API + mocks |
 | API reference + REST samples | [`docs/api/README.md`](docs/api/README.md) · [`backend/signaldesk.http`](backend/signaldesk.http) | Run requests against local server |
 | UI screenshots (5 screens) | [`docs/screenshots/`](docs/screenshots/README.md) | PNGs + captions in repo |
-| Demo video guide (recording optional) | [`docs/walkthrough/README.md`](docs/walkthrough/README.md) | Add `walkthrough.mp4` locally if submitting video |
+| Demo walkthrough video | [Google Drive — `SignalDesk.mp4`](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link) · [recording guide](docs/walkthrough/README.md) | Watch or download from Drive |
 | License | [`LICENSE`](LICENSE) | MIT |
 
 From repo root: `.\scripts\verify-deliverables.ps1` checks that required paths exist.
+
+### Walkthrough video
+
+End-to-end API + mobile demo: **[SignalDesk walkthrough on Google Drive](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link)** (`SignalDesk.mp4`, ~283 MB). Step-by-step outline and recording notes: [`docs/walkthrough/README.md`](docs/walkthrough/README.md).
 
 ---
 

@@ -7,7 +7,7 @@ Reference docs for the API and Expo app.
 | [product-contract.md](product-contract.md) | Domain model — statuses, channels, events, API/UI field mapping |
 | [api/README.md](api/README.md) | REST examples, status codes, errors |
 | [screenshots/README.md](screenshots/README.md) | Dashboard UI gallery and capture scripts |
-| [walkthrough/README.md](walkthrough/README.md) | End-to-end demo video — where to put it and how to record |
+| [walkthrough/README.md](walkthrough/README.md) | End-to-end demo video ([Google Drive](https://drive.google.com/drive/folders/14_XA18zMDPUD7NCXxKcjZjohE8D6iYl2?usp=drive_link)) + recording guide |
 | [development-workflow.md](development-workflow.md) | Staging map, commit format, PR checklist |
 
 Change [product-contract.md](product-contract.md) before you diverge types or behavior between backend and frontend.
