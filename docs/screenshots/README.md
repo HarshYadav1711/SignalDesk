@@ -10,7 +10,7 @@ Static captures of the SignalDesk Expo dashboard. Data matches the Northline HVA
 | Follow-ups | [follow-ups.png](follow-ups.png) | [follow-ups.md](follow-ups.md) |
 | Conversation detail | [conversation-detail.png](conversation-detail.png) | [conversation-detail.md](conversation-detail.md) |
 
-Root overview: [../../README.md](../../README.md#screenshots--screen-recordings)
+Root overview: [../../README.md](../../README.md#screenshots)
 
 ---
 
@@ -58,4 +58,4 @@ npx --yes -p playwright@1.49.1 playwright install chromium
 npx --yes -p playwright@1.49.1 node capture.mjs
 ```
 
-Optional short clips (e.g. `leads.mp4`) may be added here if your submission allows multiple media files. The primary walkthrough belongs in [`../walkthrough/`](../walkthrough/README.md).
+Optional short clips (e.g. `leads.mp4`) can live alongside PNGs. The primary end-to-end demo belongs in [`../walkthrough/`](../walkthrough/README.md).

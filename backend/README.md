@@ -1,24 +1,37 @@
 # SignalDesk — Backend
 
-FastAPI enquiry API with background SOP keyword matching and operational history.
+FastAPI enquiry workflow: persist inbound messages, match SOP playbooks by keyword, maintain an append-only timeline, and process matching in the background after each create or follow-up.
 
-**Full documentation:** [../README.md](../README.md) (architecture, API examples, design rationale).
+Product overview, architecture, and engineering decisions: **[../README.md](../README.md)**.
 
-## Quick start
+## Run locally
 
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
+.venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-- http://127.0.0.1:8000/docs — OpenAPI  
-- `pytest -q` — tests  
-- [signaldesk.http](signaldesk.http) — REST Client samples  
-- [../docs/api/README.md](../docs/api/README.md) — request/response examples and errors  
-- [.env.example](.env.example) — optional configuration  
+| Resource | Link |
+|----------|------|
+| OpenAPI | http://127.0.0.1:8000/docs |
+| Tests | `pytest -q` |
+| REST samples | [signaldesk.http](signaldesk.http) |
+| API reference | [../docs/api/README.md](../docs/api/README.md) |
+| Domain contract | [../docs/product-contract.md](../docs/product-contract.md) |
+| Config | [.env.example](.env.example) |
 
-Domain definitions: [../docs/product-contract.md](../docs/product-contract.md)
+## Layout
+
+```
+app/
+├── main.py              # App factory, logging middleware, exception handlers
+├── routers/             # /health, /enquiry/*
+├── services/            # EnquiryService, SopMatcherService
+├── repositories/        # SQLAlchemy access
+├── background/        # BackgroundTasks SOP runner
+├── models.py            # Enquiry, EnquiryEvent
+└── sops.py              # Playbook catalog
+```

@@ -35,6 +35,6 @@ End-to-end product demo. Place the recording here:
 ## Checklist
 
 - [ ] Video file added under `docs/walkthrough/`
-- [ ] Root README walkthrough link points to your file
+- [ ] Root README links to your recording
 - [ ] Audio is audible; UI text is readable at 1080p
-- [ ] API and app segments are both included
+- [ ] API and mobile app segments are both included
