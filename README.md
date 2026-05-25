@@ -52,28 +52,25 @@ The app does not hit the API yet—run backend and mobile side by side when you 
 ## How it fits together
 
 ```mermaid
-flowchart LR
-  subgraph ops [Expo app]
-    UI[Tabs + conversation detail]
-    Mock[mock/*.json]
-    UI --> Mock
-  end
+flowchart TB
+  Client[HTTP client]
+  API[FastAPI API]
+  BG[Background task]
+  SOP[SOP matcher]
+  DB[(SQLite)]
+  Dash[Expo dashboard]
+  Mock[mock JSON]
 
-  subgraph core [Workflow API — FastAPI]
-    API[Routers]
-    SVC[EnquiryService]
-    BG[BackgroundTasks]
-    SOP[SOP keyword matcher]
-    DB[(SQLite)]
-    API --> SVC
-    API --> BG
-    BG --> SVC
-    SVC --> SOP
-    SVC --> DB
-  end
-
-  ops -.->|planned: REST client| core
+  Client -->|REST| API
+  API --> DB
+  API -->|queue after response| BG
+  BG --> SOP
+  BG --> DB
+  Dash -->|today| Mock
+  Dash -.->|planned| API
 ```
+
+Solid lines match the current repo: the API persists enquiries, returns immediately, and runs SOP matching in a FastAPI `BackgroundTasks` job (`EnquiryService` + keyword matcher → SQLite). The dashboard reads `frontend/mock/`; it does not call the API yet.
 
 **Request path (today):** `POST /enquiry` saves the thread and queues in-process SOP matching. The handler returns right away with `processing: true`. Background work moves `received` → `processing` → `matched` or `escalated` and appends timeline events. Follow-ups clear match fields and run the same pipeline again.
 
