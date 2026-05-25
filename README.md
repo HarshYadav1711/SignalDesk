@@ -1,8 +1,8 @@
 # SignalDesk
 
-Internal MVP for triaging inbound customer enquiries: a **FastAPI workflow API** plus an **Expo operations dashboard**. Messages are matched to keyword-based SOP playbooks (no AI), each enquiry gets an append-only operational timeline, and the mobile UI surfaces leads, escalations, and follow-ups.
+Internal MVP for triaging inbound enquiries: **FastAPI workflow API** + **Expo ops dashboard**. Keyword SOP playbooks (no AI), append-only timeline per thread, mobile views for leads, escalations, and follow-ups.
 
-The API is the source of truth. The dashboard runs on **mock data** today; shapes follow a shared contract so wiring the client is a data-layer change, not a redesign.
+The API owns state. The app still uses **mock data**; types and fields match the shared contract, so connecting the client is mostly a data-layer swap—not a UI rewrite.
 
 ---
 
@@ -17,7 +17,7 @@ The API is the source of truth. The dashboard runs on **mock data** today; shape
 | [`docs/screenshots/`](docs/screenshots/README.md) | Dashboard UI captures |
 | [`docs/walkthrough/`](docs/walkthrough/README.md) | End-to-end demo video guide |
 
-Track quick starts: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commit conventions: [CONTRIBUTING.md](CONTRIBUTING.md)
+Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commits: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
@@ -45,7 +45,7 @@ npm start
 
 Use Expo Go or a simulator (`i` / `a`). Node **20 or 22** recommended (see [frontend/README.md](frontend/README.md) for version notes). Typecheck: `npm run typecheck`.
 
-The app does not call the API yet; use the backend and mobile UI side by side when demoing the full product.
+The app does not hit the API yet—run backend and mobile side by side when you want to show both halves.
 
 ---
 
@@ -53,7 +53,7 @@ The app does not call the API yet; use the backend and mobile UI side by side wh
 
 ```mermaid
 flowchart LR
-  subgraph ops [Operations dashboard — Expo]
+  subgraph ops [Expo app]
     UI[Tabs + conversation detail]
     Mock[mock/*.json]
     UI --> Mock
@@ -75,9 +75,9 @@ flowchart LR
   ops -.->|planned: REST client| core
 ```
 
-**Request path (today):** `POST /enquiry` persists the thread and queues in-process SOP matching. The handler returns immediately with `processing: true`. A background task transitions `received` → `processing` → `matched` or `escalated`, writing timeline events along the way. Follow-ups reset match fields and re-queue the same pipeline.
+**Request path (today):** `POST /enquiry` saves the thread and queues in-process SOP matching. The handler returns right away with `processing: true`. Background work moves `received` → `processing` → `matched` or `escalated` and appends timeline events. Follow-ups clear match fields and run the same pipeline again.
 
-**Client path (today):** screens load curated mock JSON aligned to the contract (`snake_case` in API, `camelCase` in TypeScript). Home KPIs are derived in code; lists and detail mirror the operational views the API will feed later.
+**Client path (today):** screens read mock JSON shaped like the contract (`snake_case` on the wire, `camelCase` in TypeScript). Home KPIs are computed in-app; list and detail screens match the views we expect from the API later.
 
 | Concern | Backend | Frontend |
 |---------|---------|----------|
@@ -87,13 +87,13 @@ flowchart LR
 | Persistence | SQLAlchemy + `repositories/` | `mock/*.json` |
 | Contract | `docs/product-contract.md` | `src/types/` |
 
-Structured JSON logs cover HTTP requests, enquiry lifecycle, and background tasks. OpenAPI at `/docs` documents request/response models with examples.
+JSON logs cover HTTP, enquiry lifecycle, and background tasks. OpenAPI at `/docs` has request/response models and examples.
 
 ---
 
 ## Screenshots
 
-Static captures of the dashboard (Northline HVAC demo data). Full gallery with captions: **[docs/screenshots/](docs/screenshots/README.md)**.
+Dashboard captures (Northline HVAC demo data). Gallery and captions: **[docs/screenshots/](docs/screenshots/README.md)**.
 
 | Screen | Preview | Notes |
 |--------|---------|--------|
@@ -109,13 +109,13 @@ Regenerate PNGs after UI token changes: see the [_render/](docs/screenshots/_ren
 
 ## Engineering decisions
 
-**BackgroundTasks (not Celery/Redis)** — SOP matching is fast in-process substring search over five playbooks. `BackgroundTasks` returns the HTTP response immediately while matching runs after the response; each task uses its own DB session. That is enough for a single-worker prototype. If matching later calls slow external services, the same service methods can move behind a queue without changing route contracts.
+**BackgroundTasks (not Celery/Redis)** — Matching is in-process substring search over five playbooks. `BackgroundTasks` lets the handler return while work runs after the response; each task opens its own DB session. Enough for a single-worker prototype. If matching later hits slow external APIs, the same service methods can sit behind a queue without changing route shapes.
 
-**SQLite by default** — No extra infrastructure to clone and run locally (`sqlite:///./signaldesk.db`). SQLAlchemy models work unchanged with PostgreSQL via `DATABASE_URL`. Schema is created with `create_all` (no Alembic in this MVP). Use PostgreSQL when running multiple API workers.
+**SQLite by default** — Clone and run with no extra services (`sqlite:///./signaldesk.db`). Same SQLAlchemy models work against PostgreSQL via `DATABASE_URL`. Schema via `create_all` (no Alembic in this MVP). Move to Postgres when you need multiple API workers.
 
-**Mock-first frontend** — Screens and navigation were built against realistic ops data while the API stabilized. Mock JSON and API types share one contract; integration is mapping at the data layer. The trade-off is no live loading states, auth, or write-through from the app yet—acceptable for proving layout and triage flows first.
+**Mock-first frontend** — Built screens and navigation on realistic ops data while the API was still moving. Mocks and API types share one contract; hooking the app up is mostly mapping at the data layer. Downside: no live loading states, auth, or write-through from the app yet—we prioritized layout and triage flows first.
 
-Handlers and ORM access are **synchronous** (FastAPI thread pool); only framework hooks use `async`. Styling uses centralized theme tokens and `StyleSheet`—no extra CSS-in-JS stack.
+Route handlers and ORM calls are **sync** (FastAPI thread pool); only framework hooks use `async`. UI uses theme tokens and `StyleSheet`—no CSS-in-JS layer.
 
 ---
 
@@ -167,26 +167,26 @@ Five hardcoded playbooks in `backend/app/sops.py`. First case-insensitive substr
 
 ## Future extensions
 
-Planned next steps if this moves beyond a prototype—none are required to run or review the current repo:
+If this grows past a prototype (nothing here is required to run or review the repo today):
 
-- Wire the Expo app to the API (read lists/history; optional follow-up/escalate actions).
-- PostgreSQL + Alembic when deploying multiple workers or environments.
+- Wire Expo to the API (lists/history; optional follow-up/escalate from the app).
+- PostgreSQL + Alembic for multi-worker or multi-env deploys.
 - `closed` status endpoint and operator archive flow.
-- Outbound channel send (email/WhatsApp) behind the same timeline model.
+- Outbound send (email/WhatsApp) on the same timeline model.
 - Auth and tenant scoping for a multi-user ops team.
 
 ---
 
-## Current scope boundaries
+## Scope (today)
 
 | Area | Today |
 |------|--------|
-| Auth | None — internal-tool assumption |
-| AI / LLM | None — keyword matching only |
-| Frontend ↔ API | Not connected; contract-aligned mocks |
-| `closed` status | Defined; no public close route yet |
+| Auth | None (internal tool) |
+| AI / LLM | None — keywords only |
+| Frontend ↔ API | Not wired; mocks match contract |
+| `closed` status | In model; no close route yet |
 | Migrations | `create_all` only |
-| CRM / payments / multi-tenant | Out of scope |
+| CRM / payments / multi-tenant | Not in scope |
 
 **Naming:** API/Python/DB use `snake_case`; TypeScript mocks use `camelCase`; SOP ids use `sop-*`. Details: [docs/product-contract.md](docs/product-contract.md).
 

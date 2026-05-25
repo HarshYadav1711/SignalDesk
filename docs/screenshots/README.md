@@ -1,6 +1,6 @@
 # UI screenshots
 
-Static captures of the SignalDesk Expo dashboard. Data matches the Northline HVAC demo scenario in `frontend/mock/`.
+PNG captures of the Expo dashboard. Same Northline HVAC demo data as `frontend/mock/`.
 
 | Screen | Image | Caption |
 |--------|-------|---------|

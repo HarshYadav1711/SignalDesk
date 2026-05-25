@@ -1,12 +1,10 @@
 # SignalDesk API reference
 
-Base URL (local): `http://127.0.0.1:8000`
+Local base URL: `http://127.0.0.1:8000`
 
-Interactive docs: [OpenAPI / Swagger](http://127.0.0.1:8000/docs) when the server is running.
+Live OpenAPI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) · REST Client file: [backend/signaldesk.http](../../backend/signaldesk.http)
 
-REST Client samples: [backend/signaldesk.http](../../backend/signaldesk.http)
-
-All error responses use a single shape: `{ "detail": "<message>" }`.
+Errors: `{ "detail": "<message>" }` (validation `422` may return a structured `detail` array).
 
 ---
 
@@ -38,7 +36,7 @@ Check API and database connectivity.
 
 ### `POST /enquiry`
 
-Accepts an inbound customer message, persists it, records a timeline event, and queues background SOP keyword matching.
+Create enquiry, persist message, append timeline event, queue background SOP keyword matching.
 
 **Request body**
 
@@ -123,7 +121,7 @@ After processing, `status` becomes `escalated` and timeline includes `auto_escal
 
 ### `GET /enquiry/{enquiry_id}/history`
 
-Returns the current enquiry snapshot and append-only operational events.
+Current enquiry snapshot plus append-only events (oldest first in examples).
 
 **Status codes**
 
@@ -190,7 +188,7 @@ Returns the current enquiry snapshot and append-only operational events.
 
 ### `POST /enquiry/{enquiry_id}/follow-up`
 
-Appends a customer follow-up message, resets SOP match fields, records a timeline event, and re-queues background matching.
+Append customer message, clear SOP match fields, timeline event, re-queue matching.
 
 **Request body**
 
@@ -228,7 +226,7 @@ Returns the updated `EnquiryResponse` (same shape as `enquiry` in create/history
 
 ### `POST /enquiry/{enquiry_id}/escalate`
 
-Marks the enquiry as escalated and appends an operator escalation event.
+Set status to escalated; append operator escalation event.
 
 **Request body**
 

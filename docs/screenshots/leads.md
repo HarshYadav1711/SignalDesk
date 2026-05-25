@@ -2,4 +2,4 @@
 
 ![Leads inbox](leads.png)
 
-Inbound enquiries awaiting triage or reply. Each card shows customer name, subject, message preview, channel badge, conversation status, and matched SOP title when available. Unread leads display a blue dot; the header badge counts unread items. Data is loaded from `frontend/mock/enquiries.json` via `mockData.ts`.
+Inbound threads waiting on triage or reply. Card: name, subject, preview, channel badge, status, matched SOP when present. Unread = blue dot; header badge = unread count. Source: `frontend/mock/enquiries.json` via `mockData.ts`.

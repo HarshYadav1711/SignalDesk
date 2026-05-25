@@ -1,8 +1,8 @@
 # SignalDesk — Backend
 
-FastAPI enquiry workflow: persist inbound messages, match SOP playbooks by keyword, maintain an append-only timeline, and process matching in the background after each create or follow-up.
+FastAPI enquiry workflow: store inbound messages, keyword-match SOP playbooks, append-only timeline, background matching after create or follow-up.
 
-Product overview, architecture, and engineering decisions: **[../README.md](../README.md)**.
+Overview, architecture, and why we picked BackgroundTasks/SQLite: **[../README.md](../README.md)**.
 
 ## Run locally
 

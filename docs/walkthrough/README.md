@@ -1,10 +1,10 @@
 # Walkthrough video
 
-End-to-end product demo. Place the recording here:
+End-to-end demo file goes here:
 
 **`docs/walkthrough/walkthrough.mp4`**
 
-(Alternatively, `walkthrough.webm` or `walkthrough.mov` — update the link in the root [README](../../README.md) if you use a different filename.)
+(`walkthrough.webm` / `walkthrough.mov` also fine—update the link in the root [README](../../README.md) if you rename it.)
 
 ---
 
@@ -28,7 +28,7 @@ End-to-end product demo. Place the recording here:
 
 - Use a simulator or device at a consistent size (e.g. iPhone 15).
 - Keep the same Northline HVAC mock scenario as in `frontend/mock/` for continuity with [screenshots](../screenshots/README.md).
-- Narrate one design choice briefly (e.g. background SOP matching vs Celery, or mock-first frontend).
+- Mention one deliberate choice (e.g. BackgroundTasks vs Celery, or mock-first frontend).
 
 ---
 

@@ -1,8 +1,8 @@
 # SignalDesk — Frontend
 
-Expo (React Native) operations dashboard for the same triage flows the API implements: home KPIs, leads inbox, escalations, follow-ups, and conversation detail with timeline and suggested SOP reply.
+Expo (React Native) ops dashboard—same triage flows as the API: home KPIs, leads, escalations, follow-ups, conversation detail (timeline + suggested SOP reply).
 
-Product overview, screenshots, and architecture: **[../README.md](../README.md)**.
+Overview, screenshots, mock-data rationale: **[../README.md](../README.md)**.
 
 ## Run locally
 
@@ -23,7 +23,7 @@ Expo Go or simulator: `i` (iOS) / `a` (Android). Typecheck: `npm run typecheck`.
 | Domain contract | [../docs/product-contract.md](../docs/product-contract.md) |
 | UI captures | [../docs/screenshots/README.md](../docs/screenshots/README.md) |
 
-Data loads from [`mock/`](mock/) via [`src/data/mockData.ts`](src/data/mockData.ts). API integration is planned; field names already mirror the contract (`camelCase` in TS, `snake_case` in API).
+Data comes from [`mock/`](mock/) through [`src/data/mockData.ts`](src/data/mockData.ts). API hookup is still TODO; field names already follow the contract (`camelCase` in TS, `snake_case` on the wire).
 
 ## Screens
 

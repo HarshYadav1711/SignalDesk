@@ -1,14 +1,14 @@
 # SignalDesk Product Contract
 
-Human-readable contract shared by **backend** and **frontend**. Both tracks implement against this document. When behavior or naming changes, update this file first, then align code in each track.
+Shared spec for **backend** and **frontend**. Update here first when behavior or naming changes, then align each track.
 
-**Status:** backend API and frontend screens implemented; frontend uses mock data (API integration pending).
+**Status:** API and mobile screens exist; the app still uses mocks (API integration pending).
 
 ---
 
 ## Purpose
 
-SignalDesk helps a small business owner triage inbound customer enquiries: accept messages, match them to SOP playbooks via keyword logic (no AI), record an operational timeline, and surface leads, escalations, and follow-ups in a mobile operations dashboard.
+Triage inbound enquiries for a small business: ingest messages, keyword-match SOP playbooks (no AI), keep an append-only ops timeline, show leads/escalations/follow-ups on a mobile dashboard.
 
 ---
 
@@ -19,9 +19,9 @@ SignalDesk helps a small business owner triage inbound customer enquiries: accep
 | **Enquiry** | Backend (source of truth) | One inbound customer thread: channel, subject, body, lifecycle status, optional SOP match fields. |
 | **EnquiryEvent** | Backend | Append-only timeline entry for an enquiry (created, SOP matched, escalated, follow-up, etc.). |
 | **SOP** | Backend (catalog) | Hardcoded playbook: id, title, keyword list, suggested response template. Not stored per enquiry until matched. |
-| **Conversation** | Frontend (view model) | UI representation of an enquiry or lead row in lists and detail. Maps 1:1 to `Enquiry` once API integration exists. |
-| **TimelineMessage** | Frontend (view model) | Single line in conversation detail; maps from `EnquiryEvent` + message fields when integrated. |
-| **DashboardMetric** | Frontend (view model) | Home-screen KPI card; derived from enquiry aggregates (mocked until API exists). |
+| **Conversation** | Frontend (view model) | List/detail row for an enquiry. 1:1 with `Enquiry` once wired to the API. |
+| **TimelineMessage** | Frontend (view model) | One line in conversation detail; from `EnquiryEvent` + message fields when integrated. |
+| **DashboardMetric** | Frontend (view model) | Home KPI card; from enquiry aggregates (mocked until the API feeds it). |
 
 ### Enquiry (canonical fields)
 
@@ -131,7 +131,7 @@ Five hardcoded playbooks. **Ids and titles are stable**; keyword lists and respo
 | `sop-billing` | Billing & Invoices | invoice, bill, billing, charge, payment |
 | `sop-hours` | Business Hours & Availability | hours, open, schedule, availability, holiday |
 
-Matching rule (backend): case-insensitive substring match on enquiry `message` (and follow-up bodies when appended). First matching SOP wins unless product logic changes.
+Matching (backend): case-insensitive substring on enquiry `message` (and follow-up text when appended). First matching SOP wins unless we change that rule.
 
 ---
 
@@ -176,21 +176,21 @@ Mock JSON under `frontend/mock/` mirrors API shapes using **camelCase** keys for
 
 ---
 
-## Parallel work boundaries
+## Who owns what
 
-| Path | Track | Do not edit without coordination |
-|------|-------|----------------------------------|
+| Path | Track | Notes |
+|------|-------|-------|
 | `backend/` | Backend | — |
 | `frontend/` | Frontend | — |
-| `docs/product-contract.md` | Both | Requires agreement; update before diverging types. |
+| `docs/product-contract.md` | Both | Agree here before types drift apart. |
 
-Frontend may use mock data and stay disconnected from the API during early UI work. Shared types must still align with this contract.
+The frontend can stay on mocks while the API evolves; types and field names still need to match this doc.
 
 ---
 
-## Out of scope (all tracks)
+## Out of scope
 
-Authentication, payments, external CRM integrations, LLM/AI matching, multi-tenant workspaces.
+Auth, payments, external CRMs, LLM/AI matching, multi-tenant workspaces.
 
 ---
 

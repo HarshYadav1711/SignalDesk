@@ -1,14 +1,14 @@
 # Documentation
 
-Shared references for the API and Expo dashboard.
+Reference docs for the API and Expo app.
 
 | Document | Purpose |
 |----------|---------|
 | [product-contract.md](product-contract.md) | Domain model — statuses, channels, events, API/UI field mapping |
 | [api/README.md](api/README.md) | REST examples, status codes, errors |
 | [screenshots/README.md](screenshots/README.md) | Dashboard UI gallery and capture scripts |
-| [walkthrough/README.md](walkthrough/README.md) | End-to-end demo video — file location and recording guide |
+| [walkthrough/README.md](walkthrough/README.md) | End-to-end demo video — where to put it and how to record |
 
-Update the product contract before changing types or behavior in either track.
+Change [product-contract.md](product-contract.md) before you diverge types or behavior between backend and frontend.
 
-Repository overview: [../README.md](../README.md) · Commit message guide: [../CONTRIBUTING.md](../CONTRIBUTING.md).
+Repo overview: [../README.md](../README.md) · Commits: [../CONTRIBUTING.md](../CONTRIBUTING.md).

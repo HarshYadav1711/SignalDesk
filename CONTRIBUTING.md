@@ -1,6 +1,6 @@
 # Contributing
 
-SignalDesk is a small monorepo (`backend/`, `frontend/`, `docs/`). Keep commits **small**, **scoped to one concern**, and **easy to review in isolation**.
+Small monorepo (`backend/`, `frontend/`, `docs/`). Prefer commits that are **small**, **one concern each**, and easy to review on their own.
 
 ## Commit message format
 
@@ -67,7 +67,7 @@ Prefer **multiple focused commits** over one mixed commit:
 | `WIP` | *(don't commit WIP on `main`; use a branch)* |
 | `misc` | Split into `docs:`, `chore:`, or scoped `refactor:` commits |
 
-Submission or assignment language in messages (`finalize submission`, `complete deliverables`) reads less well in a professional history — describe **what** changed: `docs: add walkthrough recording guide`.
+Skip submission-style messages (`finalize submission`, `complete deliverables`)—say what changed: `docs: add walkthrough recording guide`.
 
 ## Suggested workflow
 

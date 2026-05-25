@@ -2,4 +2,4 @@
 
 ![Escalations queue](escalations.png)
 
-Cases that require manager or senior technician action. Cards use a red left border and highlight the **Escalation reason** (manual or auto). Priority pills and channel/status badges match the shared theme tokens in `src/theme/colors.ts`.
+Threads that need a manager or senior tech. Red left border; **Escalation reason** (manual or auto) called out. Priority pills and badges use tokens from `src/theme/colors.ts`.
