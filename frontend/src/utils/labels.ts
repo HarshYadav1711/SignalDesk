@@ -105,11 +105,6 @@ export function formatFollowUpDue(isoDate: string, status: FollowUpStatus): stri
   });
 }
 
-/** Legacy alias used in conversation follow-up banner. */
-export function formatDueTime(isoDate: string): string {
-  return formatFollowUpDue(isoDate, 'due_today');
-}
-
 export function formatDateTime(isoDate: string): string {
   const date = new Date(isoDate);
   const now = new Date();
