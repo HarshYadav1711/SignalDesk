@@ -4,7 +4,7 @@ End-to-end demo file goes here:
 
 **`docs/walkthrough/walkthrough.mp4`**
 
-(`walkthrough.webm` / `walkthrough.mov` also fine—update the link in the root [README](../../README.md) if you rename it.)
+(`walkthrough.webm` / `walkthrough.mov` also fine.) The file is gitignored (large binary); reviewers can follow this guide without the video.
 
 ---
 
@@ -34,7 +34,7 @@ End-to-end demo file goes here:
 
 ## Checklist
 
-- [ ] Video file added under `docs/walkthrough/`
-- [ ] Root README links to your recording
+- [ ] Video file added under `docs/walkthrough/` (optional if only screenshots + API demo are submitted)
+- [ ] Recording follows the flow above (API create/poll + mobile tabs)
 - [ ] Audio is audible; UI text is readable at 1080p
 - [ ] API and mobile app segments are both included

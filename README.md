@@ -19,6 +19,20 @@ The API owns state. The app still uses **mock data**; types and fields match the
 
 Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commits: [CONTRIBUTING.md](CONTRIBUTING.md) · [development workflow](docs/development-workflow.md)
 
+### Submission deliverables
+
+| Deliverable | Location | Verify |
+|-------------|----------|--------|
+| Workflow API (FastAPI + SQLite + background SOP matching) | [`backend/`](backend/) | `cd backend && pytest -q` · OpenAPI at `/docs` |
+| Operations dashboard (Expo, mock-backed) | [`frontend/`](frontend/) | `cd frontend && npm run typecheck` · `npm start` |
+| Shared product contract | [`docs/product-contract.md`](docs/product-contract.md) | Field names align with API + mocks |
+| API reference + REST samples | [`docs/api/README.md`](docs/api/README.md) · [`backend/signaldesk.http`](backend/signaldesk.http) | Run requests against local server |
+| UI screenshots (5 screens) | [`docs/screenshots/`](docs/screenshots/README.md) | PNGs + captions in repo |
+| Demo video guide (recording optional) | [`docs/walkthrough/README.md`](docs/walkthrough/README.md) | Add `walkthrough.mp4` locally if submitting video |
+| License | [`LICENSE`](LICENSE) | MIT |
+
+From repo root: `.\scripts\verify-deliverables.ps1` checks that required paths exist.
+
 ---
 
 ## Quick start
@@ -99,8 +113,6 @@ Dashboard captures (Northline HVAC demo data). Gallery and captions: **[docs/scr
 | Escalations | ![Escalations](docs/screenshots/escalations.png) | Reasons and priority — [caption](docs/screenshots/escalations.md) |
 | Follow-ups | ![Follow-ups](docs/screenshots/follow-ups.png) | Overdue / today / upcoming — [caption](docs/screenshots/follow-ups.md) |
 | Conversation | ![Detail](docs/screenshots/conversation-detail.png) | Message, suggested SOP reply, timeline — [caption](docs/screenshots/conversation-detail.md) |
-
-Regenerate PNGs after UI token changes: see the [_render/](docs/screenshots/_render/) Playwright scripts in the screenshots doc.
 
 ---
 

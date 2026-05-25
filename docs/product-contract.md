@@ -126,10 +126,10 @@ Five hardcoded playbooks. **Ids and titles are stable**; keyword lists and respo
 | SOP id | Title | Topic keywords (non-exhaustive) |
 |--------|-------|----------------------------------|
 | `sop-pricing` | Pricing & Plans | price, pricing, cost, quote, plan |
-| `sop-refund` | Refund & Cancellation | refund, cancel, cancellation, money back |
-| `sop-technical` | Technical Support | bug, error, broken, not working, crash, login |
-| `sop-billing` | Billing & Invoices | invoice, bill, billing, charge, payment |
-| `sop-hours` | Business Hours & Availability | hours, open, schedule, availability, holiday |
+| `sop-refund` | Refund & Cancellation | refund, cancel, cancellation, money back, chargeback |
+| `sop-technical` | Technical Support | bug, error, broken, not working, crash, login, sync |
+| `sop-billing` | Billing & Invoices | invoice, bill, billing, charge, payment, receipt |
+| `sop-hours` | Business Hours & Availability | hours, open, schedule, when, availability, holiday |
 
 Matching (backend): case-insensitive substring on enquiry `message` (and follow-up text when appended). First matching SOP wins unless we change that rule.
 

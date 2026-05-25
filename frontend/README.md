@@ -23,7 +23,7 @@ Expo Go or simulator: `i` (iOS) / `a` (Android). Typecheck: `npm run typecheck`.
 | Domain contract | [../docs/product-contract.md](../docs/product-contract.md) |
 | UI captures | [../docs/screenshots/README.md](../docs/screenshots/README.md) |
 
-Data comes from [`mock/`](mock/) through [`src/data/mockData.ts`](src/data/mockData.ts). API hookup is still TODO; field names already follow the contract (`camelCase` in TS, `snake_case` on the wire).
+Data comes from [`mock/`](mock/) through [`src/data/mockData.ts`](src/data/mockData.ts). REST integration is planned; field names already follow the contract (`camelCase` in TS, `snake_case` on the wire).
 
 ## Screens
 
