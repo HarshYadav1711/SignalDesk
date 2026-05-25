@@ -2,6 +2,8 @@
 
 Small monorepo (`backend/`, `frontend/`, `docs/`). Prefer commits that are **small**, **one concern each**, and easy to review on their own.
 
+**Workflow guide:** [docs/development-workflow.md](docs/development-workflow.md) — staging map, multi-area commit order, optional message checker.
+
 ## Commit message format
 
 Use [Conventional Commits](https://www.conventionalcommits.org/):
@@ -15,8 +17,8 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 | Part | Rules |
 |------|--------|
 | **type** | `feat`, `fix`, `docs`, `refactor`, `test`, `chore` |
-| **scope** | Optional but recommended: `backend`, `frontend`, `docs` |
-| **summary** | Imperative, lowercase, no period; ≤ ~72 characters |
+| **scope** | Recommended: `backend`, `frontend`, `docs`, `mock` (for `frontend/mock/` only) |
+| **summary** | Imperative, lowercase, no period; ≤ 72 characters; name the change, not the vibe |
 | **body** | Use when the “why” is not obvious from the diff |
 
 ### Types
@@ -35,10 +37,13 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 | Scope | Paths (typical) |
 |-------|------------------|
 | `backend` | `backend/` |
-| `frontend` | `frontend/` |
+| `frontend` | `frontend/` app code (exclude `mock/` when mock-only) |
+| `mock` | `frontend/mock/*.json` |
 | `docs` | `docs/`, root `README.md`, `CONTRIBUTING.md` |
 
 Omit scope only for repo-wide chores (e.g. `chore: add MIT license`).
+
+Validate locally (optional): `.\scripts\check-commit-msg.ps1 -Message "docs: your subject"`
 
 ## Split changes across commits
 
@@ -50,6 +55,7 @@ Prefer **multiple focused commits** over one mixed commit:
 | Backend polish (logs, errors, OpenAPI) | `refactor(backend): standardize structured logging on routes` |
 | UI or navigation | `feat(frontend): show escalation reason on conversation header` |
 | UI polish only | `refactor(frontend): align status badge colors with theme tokens` |
+| Mock JSON only | `refactor(mock): set follow-up due dates relative to demo day` |
 | Product contract or API docs | `docs: document closed status transition` |
 | README / screenshots / walkthrough | `docs: add conversation detail screenshot and caption` |
 | Dependencies or lint config | `chore(frontend): bump expo SDK patch version` |
@@ -66,8 +72,10 @@ Prefer **multiple focused commits** over one mixed commit:
 | `Fixes` | `fix(backend): close background task DB session on failure` |
 | `WIP` | *(don't commit WIP on `main`; use a branch)* |
 | `misc` | Split into `docs:`, `chore:`, or scoped `refactor:` commits |
+| `refactor(frontend): improve operational authenticity` | `refactor(frontend): show escalation reason on LeadCard` |
+| `docs: strengthen engineering narrative` | `docs: document BackgroundTasks choice in README` |
 
-Skip submission-style messages (`finalize submission`, `complete deliverables`)—say what changed: `docs: add walkthrough recording guide`.
+Skip submission-style or grading phrases (`finalize submission`, `complete deliverables`, `improve authenticity`)—say what changed: `docs: add walkthrough recording guide`.
 
 ## Suggested workflow
 
@@ -84,4 +92,4 @@ git config commit.template .gitmessage
 
 ## History on `main`
 
-Early commits include vague messages (`Foundational structure`, `Fixes`). **Do not rewrite pushed history** for cosmetics alone — continue with clear messages from here forward.
+Early commits include vague messages (`Foundational structure`, `Fixes`). **Do not rewrite pushed history** for cosmetics alone — continue with clear, concrete messages from here forward. See [docs/development-workflow.md](docs/development-workflow.md#history-on-this-repo) for how later commits are grouped by track.

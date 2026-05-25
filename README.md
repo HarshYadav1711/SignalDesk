@@ -17,7 +17,7 @@ The API owns state. The app still uses **mock data**; types and fields match the
 | [`docs/screenshots/`](docs/screenshots/README.md) | Dashboard UI captures |
 | [`docs/walkthrough/`](docs/walkthrough/README.md) | End-to-end demo video guide |
 
-Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commits: [CONTRIBUTING.md](CONTRIBUTING.md)
+Per-track setup: [backend/README.md](backend/README.md) · [frontend/README.md](frontend/README.md) · Commits: [CONTRIBUTING.md](CONTRIBUTING.md) · [development workflow](docs/development-workflow.md)
 
 ---
 
